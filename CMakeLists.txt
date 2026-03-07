@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(googletest)
 # 2. Crear una libreria con tu codigo fuente (EXCEPTO el main.cpp)
 add_library(MiCodigo 
     src/divideyvenceras.cc
+    src/instancia-vector.cc
     # Añade aqui el resto de tus .cpp a medida que los vayas creando
 )
 target_include_directories(MiCodigo PUBLIC src)
