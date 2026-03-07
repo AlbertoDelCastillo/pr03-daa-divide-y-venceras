@@ -19,6 +19,12 @@ class Instancia {
   virtual void Mostrar() = 0;
 
   /**
+   * Metodo virtual para obtener el tamaño de la instancia
+   * @return Tamaño de la instancia
+   */
+  virtual int GetTamaño() = 0;
+
+  /**
    * Destructor
    */
   virtual ~Instancia() = default;
