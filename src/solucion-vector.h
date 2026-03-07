@@ -24,6 +24,31 @@ class SolucionVector : public Solucion {
    */
   void CopiarValores(Solucion* otra) override;
 
+  /**
+   * Getter para obtener el tamaño
+   * @return tamaño de los datos
+   */
+  int GetTamaño();
+
+  /**
+   * Obtiene el dato en la posición indicada
+   */
+  int GetDato(int indice) const {
+    if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+      return datos_[indice];
+    }
+    return -1;  // O lanzar excepción
+  }
+
+  /**
+   * Establece el dato en la posición indicada
+   */
+  void SetDato(int indice, int valor) {
+    if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+      datos_[indice] = valor;
+    }
+  }
+  
  private:
   std::vector<int> datos_;
 };

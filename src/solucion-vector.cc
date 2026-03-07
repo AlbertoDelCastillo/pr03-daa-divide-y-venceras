@@ -31,3 +31,31 @@ void SolucionVector::CopiarValores(Solucion* otra) {
     datos_ = otraVector->datos_;
   }
 }
+
+
+/**
+ * Getter para obtener el tamaño
+ * @return tamaño de los datos
+ */
+int SolucionVector::GetTamaño() {
+  return static_cast<int>(datos_.size());
+}
+
+/**
+ * Obtiene el dato en la posición indicada
+ */
+int SolucionVector::GetDato(int indice) const {
+  if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+    return datos_[indice];
+  }
+  return -1;  // O lanzar excepción
+}
+
+/**
+ * Establece el dato en la posición indicada
+ */
+void SolucionVector::SetDato(int indice, int valor) {
+  if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+    datos_[indice] = valor;
+  }
+}
