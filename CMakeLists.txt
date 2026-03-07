@@ -16,7 +16,7 @@ FetchContent_MakeAvailable(googletest)
 
 # 2. Crear una libreria con tu codigo fuente (EXCEPTO el main.cpp)
 add_library(MiCodigo 
-    src/InstanciaVector.cpp
+    src/divideyvenceras.cc
     # Añade aqui el resto de tus .cpp a medida que los vayas creando
 )
 target_include_directories(MiCodigo PUBLIC src)
@@ -24,13 +24,15 @@ target_include_directories(MiCodigo PUBLIC src)
 # ---------------------------------------------------
 # 3. EJECUTABLE PRINCIPAL (El programa de tu practica)
 # ---------------------------------------------------
-add_executable(programa_principal src/main.cpp)
+add_executable(programa_principal src/main.cc)
 target_link_libraries(programa_principal MiCodigo)
 
 # ---------------------------------------------------
 # 4. EJECUTABLE DE TESTS (Para hacer TDD)
 # ---------------------------------------------------
-add_executable(ejecutar_tests test/test_instancia.cpp)
+add_executable(ejecutar_tests 
+    test/test_instancia.cc
+)
 target_link_libraries(ejecutar_tests 
     MiCodigo 
     GTest::gtest_main
