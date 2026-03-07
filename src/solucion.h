@@ -11,6 +11,12 @@ class Solucion {
    * Metodo virtual para mostrar los valores de la solucion
    */
   virtual void Mostrar() = 0;
+
+  /**
+   * Metodo virtual para copiar el valor de de una solucion
+   * @param otro Otra solucion la cual se va a copiar los datos
+   */
+  virtual void CopiarValores(Solucion* otra) = 0;
 };
 
 #endif
