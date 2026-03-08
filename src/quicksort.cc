@@ -1,26 +1,44 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos 2025-2026
+ * 3º Año de Carrera
+ * Práctica 3: Divide y Vencerás - Ordenación
+ *
+ * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
+ * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
+ * @brief Implementación del algoritmo QuickSort usando el patrón Divide y Vencerás.
+ * @date Mar 8 2026
+ * @version 1.0
+ */
+
 #include "quicksort.h"
 
 /**
- * Constructor de QuickSort
- * @param inst Instancia inicial a ordenar
+ * @brief Constructor de QuickSort.
+ * Inicializa el algoritmo con la instancia a ordenar.
+ * @param inst Instancia inicial a ordenar.
  */
 QuickSort::QuickSort(Instancia* inst) : DivideYVenceras(inst) {
   solucion_problema_ = new SolucionVector(inst->GetTamaño());
 }
 
 /**
- * Comprueba si la instancia es lo suficientemente pequeña para resolver directamente.
- * @param inst Instancia a evaluar
- * @return true si el tamaño es <= 1, false en caso contrario
+ * @brief Comprueba si la instancia es lo suficientemente pequeña para resolver directamente.
+ * Caso base: instancia de tamaño <= 1.
+ * @param inst Instancia a evaluar.
+ * @return true si el tamaño es <= 1, false en caso contrario.
  */
 bool QuickSort::Small(Instancia* inst) {
   return inst->GetTamaño() <= 1;
 }
 
 /**
- * Resuelve el caso base de una instancia pequeña.
- * @param inst Instancia pequeña a resolver
- * @return Solución ordenada de la instancia
+ * @brief Resuelve el caso base de una instancia pequeña.
+ * Si la instancia tiene 0 o 1 elemento, ya está ordenada.
+ * @param inst Instancia pequeña a resolver.
+ * @return Solución ordenada de la instancia.
  */
 Solucion* QuickSort::SolveSmall(Instancia* inst) {
   SolucionVector* solucion = new SolucionVector(inst->GetTamaño());
@@ -32,10 +50,11 @@ Solucion* QuickSort::SolveSmall(Instancia* inst) {
 }
 
 /**
- * Divide la instancia usando un pivote en dos subinstancias: menores y mayores.
- * @param inst Instancia a dividir
- * @param tamaño Tamaño de la instancia
- * @return Vector con dos subinstancias
+ * @brief Divide la instancia usando un pivote en dos subinstancias: menores y mayores.
+ * El pivote se guarda en una pila para ser recuperado en Combine.
+ * @param inst Instancia a dividir.
+ * @param tamaño Tamaño de la instancia.
+ * @return Vector con dos subinstancias.
  */
 std::vector<Instancia*> QuickSort::Divide(Instancia* inst, int tamaño) {
   InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
@@ -58,10 +77,11 @@ std::vector<Instancia*> QuickSort::Divide(Instancia* inst, int tamaño) {
 }
 
 /**
- * Combina dos soluciones parciales y el pivote en una solución ordenada.
- * @param sol_parcial_1 Solución de los elementos menores
- * @param sol_parcial_2 Solución de los elementos mayores
- * @return Solución combinada y ordenada
+ * @brief Combina dos soluciones parciales y el pivote en una solución ordenada.
+ * Recupera el pivote de la pila para insertarlo en la posición correcta.
+ * @param sol_parcial_1 Solución de los elementos menores.
+ * @param sol_parcial_2 Solución de los elementos mayores.
+ * @return Solución combinada y ordenada.
  */
 Solucion* QuickSort::Combine(Solucion* sol_parcial_1, Solucion* sol_parcial_2) {
   SolucionVector* menores = dynamic_cast<SolucionVector*>(sol_parcial_1);

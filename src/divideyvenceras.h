@@ -1,66 +1,90 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos 2025-2026
+ * 3º Año de Carrera
+ * Práctica 3: Divide y Vencerás - Ordenación
+ *
+ * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
+ * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
+ * @brief Clase abstracta para algoritmos con metodología Divide y Vencerás.
+ * @date Mar 8 2026
+ * @version 1.0
+ */
+
+/**
+ * @file divideyvenceras.h
+ * @brief Declaración de la clase abstracta DivideYVenceras para algoritmos de tipo divide y vencerás.
+ */
+
 #ifndef DIVIDEYVENCERAS_H
 #define DIVIDEYVENCERAS_H
 
-#include<vector>
-
+#include <vector>
 #include "algoritmo.h"
 #include "instancia.h"
 #include "solucion.h"
 
 /**
- * Clase abstracata que representa algoritmos con metodologia divide y venceras
- * Define un metodo solve() que es igual para todas las clases hijas, y 4 
- * metodos que deben de definir las clases hijas: Small, SolveSmall, Divide
- * y Combine.
+ * @class DivideYVenceras
+ * @brief Clase abstracta que representa algoritmos con metodología divide y vencerás.
+ * Define un método Solve() común para todas las clases hijas, y cuatro métodos virtuales
+ * que deben ser implementados por las clases derivadas: Small, SolveSmall, Divide y Combine.
  */
 class DivideYVenceras : public Algoritmo {
  public:
   /**
-   * Constructor incial
-   * @param inst Valor incial de la instancia
+   * @brief Constructor inicial.
+   * Inicializa el algoritmo con la instancia del problema.
+   * @param inst Valor inicial de la instancia.
    */
   DivideYVenceras(Instancia* inst);
 
   /**
-   * Override de metodo ejecutar para indicar a algoritmo como resolver la 
-   * ejecucion
+   * @brief Override del método ejecutar para indicar a Algoritmo cómo resolver la ejecución.
    */
   void Ejecutar() override;
 
   /**
-   * Metodo solve encargado de resolver el problema usando la logica de divide
-   * y venceras
+   * @brief Método Solve encargado de resolver el problema usando la lógica de divide y vencerás.
+   * Aplica recursivamente la metodología, utilizando los métodos Small, SolveSmall, Divide y Combine.
+   * @param inst Instancia a resolver.
+   * @param tamaño Tamaño de la instancia.
+   * @return Solución al problema.
    */
   Solucion* Solve(Instancia* inst, int tamaño);
 
   /**
-   * Metodo virtual Small para comprobar la condicion de que sea pequeño
-   * @param inst Indica si el tamaño de una isntancia es lo sufuciientemente 
-   *  pequeño para poder resolverlo directamente.´
-   * @return true si es lo suficientemente pequeño, false en caso contrario
+   * @brief Método virtual Small para comprobar la condición de caso base.
+   * Indica si el tamaño de una instancia es lo suficientemente pequeño para resolverlo directamente.
+   * @param inst Instancia a evaluar.
+   * @return true si es caso base, false en caso contrario.
    */
   virtual bool Small(Instancia* inst) = 0;
   
   /**
-   * Metodo virtual SolveSmall para ejecutar el algoritmo en el caso pequeño
-   * @param inst Valor de la instancia la cual se va a resolver
-   * @return Solucion parcial al problema
+   * @brief Método virtual SolveSmall para resolver el caso base.
+   * Ejecuta el algoritmo en el caso pequeño.
+   * @param inst Instancia pequeña a resolver.
+   * @return Solución parcial al problema.
    */
   virtual Solucion* SolveSmall(Instancia* inst) = 0;
   
   /**
-   * Metodo virtual Divide para partir una instancia en subinstancias mas
-   * pequeñas
-   * @param inst Valor de la instancia a dividir
-   * @return Subintancia de la incial
+   * @brief Método virtual Divide para partir una instancia en subinstancias más pequeñas.
+   * @param inst Instancia a dividir.
+   * @param tamaño Tamaño de la instancia.
+   * @return Vector de subinstancias derivadas de la inicial.
    */
   virtual std::vector<Instancia*> Divide(Instancia* inst, int tamaño) = 0;
   
   /**
-   * Metodo virtual Combine para ejecutar el algoritmo en el caso pequeño
-   * @param sol_parcial_1 Primera solucion parcial a unir
-   * @param sol_parcial_2 Segunda solucion parcial a unir
-   * @return Solcion al problema resultado de unir 2 soluciones parciales
+   * @brief Método virtual Combine para unir soluciones parciales.
+   * Ejecuta el algoritmo para combinar dos soluciones parciales en una solución global.
+   * @param sol_parcial_1 Primera solución parcial a unir.
+   * @param sol_parcial_2 Segunda solución parcial a unir.
+   * @return Solución al problema resultado de unir dos soluciones parciales.
    */
   virtual Solucion* Combine(Solucion* sol_parcial_1, Solucion* sol_parcial_2) = 0;
 
