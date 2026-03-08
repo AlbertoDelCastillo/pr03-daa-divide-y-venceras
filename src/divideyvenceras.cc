@@ -25,8 +25,8 @@ Solucion* DivideYVenceras::Solve(Instancia* inst, int tamaño) {
   } 
   else {
     std::vector<Instancia*> m = Divide(inst, tamaño); 
-    Solucion* s1 = Solve(m[0], tamaño / 2);
-    Solucion* s2 = Solve(m[1], tamaño / 2);
+    Solucion* s1 = Solve(m[0], m[0]->GetTamaño());
+    Solucion* s2 = Solve(m[1], m[1]->GetTamaño());
     Solucion* S = Combine(s1, s2);
     delete m[0];
     delete m[1];

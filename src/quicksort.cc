@@ -40,18 +40,18 @@ Solucion* QuickSort::SolveSmall(Instancia* inst) {
 std::vector<Instancia*> QuickSort::Divide(Instancia* inst, int tamaño) {
   InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
   std::vector<Instancia*> resultado;
-  int pivote = instancia_vec->GetDato(0);
+  int pivote_actual = instancia_vec->GetDato(0);
+  pila_pivotes_.push(pivote_actual); 
   InstanciaVector* menores = new InstanciaVector();
   InstanciaVector* mayores = new InstanciaVector();
   for (int i = 1; i < tamaño; ++i) {
     int valor = instancia_vec->GetDato(i);
-    if (valor <= pivote) {
+    if (valor <= pivote_actual) {
       menores->AgregarDato(valor);
     } else {
       mayores->AgregarDato(valor);
     }
   }
-  instancia_vec->SetDato(0, pivote);
   resultado.push_back(menores);
   resultado.push_back(mayores);
   return resultado;
@@ -66,23 +66,16 @@ std::vector<Instancia*> QuickSort::Divide(Instancia* inst, int tamaño) {
 Solucion* QuickSort::Combine(Solucion* sol_parcial_1, Solucion* sol_parcial_2) {
   SolucionVector* menores = dynamic_cast<SolucionVector*>(sol_parcial_1);
   SolucionVector* mayores = dynamic_cast<SolucionVector*>(sol_parcial_2);
-
-  // El pivote se debe recuperar de la instancia original, aquí lo ponemos como 0 por simplicidad
-  int pivote = 0;
-
+  int pivote_recuperado = pila_pivotes_.top();
+  pila_pivotes_.pop();
   int tamaño_total = menores->GetTamaño() + 1 + mayores->GetTamaño();
   SolucionVector* resultado = new SolucionVector(tamaño_total);
-
-  // Copiar menores
   for (int i = 0; i < menores->GetTamaño(); ++i) {
     resultado->SetDato(i, menores->GetDato(i));
   }
-  // Insertar pivote
-  resultado->SetDato(menores->GetTamaño(), pivote);
-  // Copiar mayores
+  resultado->SetDato(menores->GetTamaño(), pivote_recuperado);
   for (int i = 0; i < mayores->GetTamaño(); ++i) {
     resultado->SetDato(menores->GetTamaño() + 1 + i, mayores->GetDato(i));
   }
-
   return resultado;
 }

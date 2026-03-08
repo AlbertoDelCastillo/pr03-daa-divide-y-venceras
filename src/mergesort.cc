@@ -20,7 +20,11 @@ bool MergeSort::Small(Instancia* inst) {
  * Resuelve el caso base: una instancia con 0 o 1 elemento ya está ordenada
  */
 Solucion* MergeSort::SolveSmall(Instancia* inst) {
+  InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
   SolucionVector* solucion = new SolucionVector(inst->GetTamaño());
+  for (int i = 0; i < inst->GetTamaño(); ++i) {
+    solucion->SetDato(i, instancia_vec->GetDato(i));
+  }
   return solucion;
 }
 
@@ -31,8 +35,14 @@ std::vector<Instancia*> MergeSort::Divide(Instancia* inst, int tamaño) {
   InstanciaVector* instancia = dynamic_cast<InstanciaVector*>(inst);
   std::vector<Instancia*> resultado;
   int mitad = tamaño / 2;
-  InstanciaVector* primera = new InstanciaVector(mitad);
-  InstanciaVector* segunda = new InstanciaVector(tamaño - mitad);
+  InstanciaVector* primera = new InstanciaVector();
+  InstanciaVector* segunda = new InstanciaVector();
+  for (int i = 0; i < mitad; ++i) {
+    primera->AgregarDato(instancia->GetDato(i));
+  }
+  for (int i = mitad; i < tamaño; ++i) {
+    segunda->AgregarDato(instancia->GetDato(i));
+  }
   resultado.push_back(primera);
   resultado.push_back(segunda);
   return resultado;

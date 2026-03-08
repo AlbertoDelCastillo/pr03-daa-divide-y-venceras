@@ -1,25 +1,24 @@
 #include <iostream>
-#include "divideyvenceras.h"
-#include "instancia-vector.h"
 
+#include "utilidades.h"
+
+/**
+ * Punto de entrada principal del programa.
+ */
 int main() {
   std::cout << "=== Práctica Divide y Venceras ===" << std::endl;
-  std::cout << std::endl;
-
-  // Crear instancias de prueba
-  std::cout << "Instancia 1: Con tamaño especificado (20 elementos)" << std::endl;
-  InstanciaVector instancia1(20);
-  instancia1.Mostrar();
-  
-  std::cout << std::endl;
-  std::cout << "Instancia 2: Constructor por defecto + GenerarAleatorio()" << std::endl;
-  InstanciaVector instancia2;
-  instancia2.GenerarAleatorio();
-  instancia2.Mostrar();
-  
-  std::cout << std::endl;
-  std::cout << "Tamaño de instancia1: " << instancia1.GetTamaño() << std::endl;
-  std::cout << "Tamaño de instancia2: " << instancia2.GetTamaño() << std::endl;
-
+  std::cout << "Seleccione modo:\n";
+  std::cout << "1. Normal\n";
+  std::cout << "2. Debug\n";
+  std::cout << "Opción: ";
+  int modo;
+  std::cin >> modo;
+  if (modo == 1) {
+    ModoNormal();
+  } else if (modo == 2) {
+    ModoDebug();
+  } else {
+    std::cout << "Opción no válida.\n";
+  }
   return 0;
 }
