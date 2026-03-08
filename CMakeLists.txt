@@ -19,6 +19,7 @@ add_library(MiCodigo
     src/divideyvenceras.cc
     src/instancia-vector.cc
     src/solucion-vector.cc
+    src/mergesort.cc
 )
 target_include_directories(MiCodigo PUBLIC src)
 
@@ -34,6 +35,7 @@ target_link_libraries(programa_principal MiCodigo)
 add_executable(ejecutar_tests 
     test/test_instancia.cc
     test/test_solucion.cc
+    test/test_mergesort.cc
 )
 
 target_link_libraries(ejecutar_tests 

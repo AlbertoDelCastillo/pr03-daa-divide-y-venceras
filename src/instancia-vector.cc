@@ -11,9 +11,9 @@ InstanciaVector::InstanciaVector() : datos_() {}
 /**
  * Constructor que especifica el tamaño del vector
  */
-InstanciaVector::InstanciaVector(int tamanio) {
-  if (tamanio > 0) {
-    datos_.resize(tamanio);
+InstanciaVector::InstanciaVector(int tamaño) {
+  if (tamaño > 0) {
+    datos_.resize(tamaño);
     GenerarAleatorio();
   }
 }

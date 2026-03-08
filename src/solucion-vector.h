@@ -33,22 +33,13 @@ class SolucionVector : public Solucion {
   /**
    * Obtiene el dato en la posición indicada
    */
-  int GetDato(int indice) const {
-    if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
-      return datos_[indice];
-    }
-    return -1;  // O lanzar excepción
-  }
+  int GetDato(int indice) const;
 
   /**
    * Establece el dato en la posición indicada
    */
-  void SetDato(int indice, int valor) {
-    if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
-      datos_[indice] = valor;
-    }
-  }
-  
+  void SetDato(int indice, int valor);
+
  private:
   std::vector<int> datos_;
 };
