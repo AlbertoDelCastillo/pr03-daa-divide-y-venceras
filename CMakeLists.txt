@@ -20,6 +20,7 @@ add_library(MiCodigo
     src/instancia-vector.cc
     src/solucion-vector.cc
     src/mergesort.cc
+    # src/quicksort.cc
 )
 target_include_directories(MiCodigo PUBLIC src)
 
@@ -36,6 +37,7 @@ add_executable(ejecutar_tests
     test/test_instancia.cc
     test/test_solucion.cc
     test/test_mergesort.cc
+    test/test_quicksort.cc
 )
 
 target_link_libraries(ejecutar_tests 
