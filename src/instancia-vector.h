@@ -35,9 +35,30 @@ class InstanciaVector : public Instancia {
   int GetTamaño() override;
 
   /**
+   * Obtiene el dato en la posición indicada
+   * @param indice Posición del dato
+   * @return Valor del dato en esa posición
+   */
+  int GetDato(int indice) const;
+
+  /**
+   * Agrega un dato al final del vector
+   * @param valor Valor a agregar
+   */
+  void AgregarDato(int valor);
+
+  /**
    * Destructor
    */
   ~InstanciaVector() = default;
+
+  /**
+   * Establece el dato en la posición indicada
+   * @param indice Posición del dato
+   * @param valor Valor a establecer
+   */
+  void SetDato(int indice, int valor);
+
  private:
   std::vector<int> datos_;
 };

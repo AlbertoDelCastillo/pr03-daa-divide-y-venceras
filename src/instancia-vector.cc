@@ -53,3 +53,34 @@ void InstanciaVector::Mostrar() {
 int InstanciaVector::GetTamaño() {
   return datos_.size();
 }
+
+/**
+ * Obtiene el dato en la posición indicada
+ * @param indice Posición del dato
+ * @return Valor del dato en esa posición
+ */
+int InstanciaVector::GetDato(int indice) const {
+  if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+    return datos_[indice];
+  }
+  return -1; // O lanzar excepción si prefieres
+}
+
+/**
+ * Agrega un dato al final del vector
+ * @param valor Valor a agregar
+ */
+void InstanciaVector::AgregarDato(int valor) {
+  datos_.push_back(valor);
+}
+
+/**
+ * Establece el dato en la posición indicada
+ * @param indice Posición del dato
+ * @param valor Valor a establecer
+ */
+void InstanciaVector::SetDato(int indice, int valor) {
+  if (indice >= 0 && indice < static_cast<int>(datos_.size())) {
+    datos_[indice] = valor;
+  }
+}

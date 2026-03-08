@@ -20,7 +20,7 @@ add_library(MiCodigo
     src/instancia-vector.cc
     src/solucion-vector.cc
     src/mergesort.cc
-    # src/quicksort.cc
+    src/quicksort.cc
 )
 target_include_directories(MiCodigo PUBLIC src)
 
