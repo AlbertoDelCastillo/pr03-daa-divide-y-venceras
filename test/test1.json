@@ -1,0 +1,25 @@
+{
+  "numero_dias": 2,
+  "empleados": [
+    "Ana", 
+    "Luis"
+  ],
+  "descansos_C": [
+    1, 
+    0
+  ],
+  "minimos_turno_B": [
+    [1, 1, 1],
+    [1, 2, 0]
+  ],
+  "satisfaccion_A": [
+    [
+      [5, 3, 1],
+      [4, 5, 2]
+    ],
+    [
+      [1, 5, 5],
+      [2, 4, 3]
+    ]
+  ]
+}
