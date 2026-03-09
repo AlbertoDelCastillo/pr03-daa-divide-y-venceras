@@ -29,20 +29,9 @@
 class Instancia {
  public:
   /**
-   * @brief Método virtual para instanciar de forma aleatoria los datos.
-   */
-  virtual void GenerarAleatorio() = 0;
-
-  /**
    * @brief Método virtual para mostrar los valores de la instancia.
    */
   virtual void Mostrar() = 0;
-
-  /**
-   * @brief Método virtual para obtener el tamaño de la instancia.
-   * @return Tamaño de la instancia.
-   */
-  virtual int GetTamaño() = 0;
 
   /**
    * @brief Destructor virtual por defecto.

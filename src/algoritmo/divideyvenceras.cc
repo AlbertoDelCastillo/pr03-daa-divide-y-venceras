@@ -29,8 +29,7 @@ DivideYVenceras::DivideYVenceras(Instancia* inst) : problema_inicial_{inst} {}
  */
 void DivideYVenceras::Ejecutar() {
   Instancia* inst = this->problema_inicial_;
-  int tamaño = inst->GetTamaño();
-  this->solucion_problema_->CopiarValores(this->Solve(inst, tamaño));
+  this->solucion_problema_ = this->Solve(inst);
 }
 
 /**
@@ -40,13 +39,13 @@ void DivideYVenceras::Ejecutar() {
  * @param tamaño Tamaño de la instancia.
  * @return Solución al problema.
  */
-Solucion* DivideYVenceras::Solve(Instancia* inst, int tamaño) {
+Solucion* DivideYVenceras::Solve(Instancia* inst) {
   if (Small(inst)) {
     return SolveSmall(inst);
   } else {
-    std::vector<Instancia*> m = Divide(inst, tamaño); 
-    Solucion* s1 = Solve(m[0], m[0]->GetTamaño());
-    Solucion* s2 = Solve(m[1], m[1]->GetTamaño());
+    std::vector<Instancia*> m = Divide(inst); 
+    Solucion* s1 = Solve(m[0]);
+    Solucion* s2 = Solve(m[1]);
     Solucion* S = Combine(s1, s2);
     delete m[0];
     delete m[1];

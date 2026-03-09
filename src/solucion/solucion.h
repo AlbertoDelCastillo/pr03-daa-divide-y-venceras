@@ -33,11 +33,11 @@ class Solucion {
    */
   virtual void Mostrar() = 0;
 
-  /**
-   * @brief Método virtual para copiar los valores de otra solución.
-   * @param otra Otra solución de la cual se van a copiar los datos.
-   */
-  virtual void CopiarValores(Solucion* otra) = 0;
+  // /**
+  //  * @brief Método virtual para copiar los valores de otra solución.
+  //  * @param otra Otra solución de la cual se van a copiar los datos.
+  //  */
+  // virtual void CopiarValores(Solucion* otra) = 0;
 
   /**
    * @brief Destructor virtual por defecto.

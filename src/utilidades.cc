@@ -55,13 +55,13 @@ void ModoNormal() {
     InstanciaVector instancia(tamaño);
     MergeSort mergesort(&instancia);
     auto inicio_merge = std::chrono::high_resolution_clock::now();
-    mergesort.Solve(&instancia, tamaño);
+    mergesort.Solve(&instancia);
     auto fin_merge = std::chrono::high_resolution_clock::now();
     double tiempo_merge = std::chrono::duration<double, std::milli>(fin_merge - inicio_merge).count();
     tiempos_merge.push_back(tiempo_merge);
     QuickSort quicksort(&instancia);
     auto inicio_quick = std::chrono::high_resolution_clock::now();
-    quicksort.Solve(&instancia, tamaño);
+    quicksort.Solve(&instancia);
     auto fin_quick = std::chrono::high_resolution_clock::now();
     double tiempo_quick = std::chrono::duration<double, std::milli>(fin_quick - inicio_quick).count();
     tiempos_quick.push_back(tiempo_quick);
@@ -89,13 +89,13 @@ void ModoDebug() {
   instancia.Mostrar();
   if (opcion == 1) {
     MergeSort mergesort(&instancia);
-    Solucion* solucion = mergesort.Solve(&instancia, tamaño);
+    Solucion* solucion = mergesort.Solve(&instancia);
     std::cout << "Solución final (MergeSort):\n";
     solucion->Mostrar();
     delete solucion;
   } else if (opcion == 2) {
     QuickSort quicksort(&instancia);
-    Solucion* solucion = quicksort.Solve(&instancia, tamaño);
+    Solucion* solucion = quicksort.Solve(&instancia);
     std::cout << "Solución final (QuickSort):\n";
     solucion->Mostrar();
     delete solucion;

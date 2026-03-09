@@ -47,7 +47,7 @@ class InstanciaVector : public Instancia {
   /**
    * @brief Override del método para generar valores aleatorios en el vector.
    */
-  void GenerarAleatorio() override;
+  void GenerarAleatorio();
 
   /**
    * @brief Muestra los valores del vector por pantalla.
@@ -58,7 +58,7 @@ class InstanciaVector : public Instancia {
    * @brief Obtiene el tamaño de la instancia.
    * @return Tamaño del vector.
    */
-  int GetTamaño() override;
+  int GetTamaño();
 
   /**
    * @brief Obtiene el dato en la posición indicada.

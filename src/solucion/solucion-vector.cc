@@ -39,16 +39,16 @@ void SolucionVector::Mostrar() {
   std::cout << "]" << std::endl;
 }
 
-/**
- * @brief Copia los valores de otra solución en esta.
- * @param otra Otra solución de la cual se van a copiar los datos.
- */
-void SolucionVector::CopiarValores(Solucion* otra) {
-  SolucionVector* otraVector = dynamic_cast<SolucionVector*>(otra);
-  if (otraVector != nullptr) {
-    datos_ = otraVector->datos_;
-  }
-}
+// /**
+//  * @brief Copia los valores de otra solución en esta.
+//  * @param otra Otra solución de la cual se van a copiar los datos.
+//  */
+// void SolucionVector::CopiarValores(Solucion* otra) {
+//   SolucionVector* otraVector = dynamic_cast<SolucionVector*>(otra);
+//   if (otraVector != nullptr) {
+//     datos_ = otraVector->datos_;
+//   }
+// }
 
 /**
  * @brief Obtiene el tamaño del vector de solución.
