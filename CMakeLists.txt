@@ -18,6 +18,7 @@ add_library(MiCodigo
     src/algoritmo/mergesort.cc
     src/algoritmo/quicksort.cc
     src/isntancias/instancia-vector.cc
+    src/isntancias/instancia-empleados.cc
     src/solucion/solucion-vector.cc
     src/utilidades.cc
 )
