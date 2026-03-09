@@ -6,7 +6,7 @@
 
 int main() {
   std::cout << "Iniciando prueba de lectura JSON..." << std::endl;
-  std::string ruta_archivo = "../test/test1.json"; 
+  std::string ruta_archivo = "../test/instance_horizon7_employees5_shifts3_000.json"; 
   LectorInstancia* lector = new LectorJSON();
   Instancia* problema_empleados = lector->LeerDesdeFichero(ruta_archivo);
   if (problema_empleados != nullptr) {

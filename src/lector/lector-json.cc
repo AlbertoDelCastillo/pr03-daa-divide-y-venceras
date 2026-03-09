@@ -13,22 +13,43 @@ using json = nlohmann::json;
 Instancia* LectorJSON::LeerDesdeFichero(const std::string& ruta_fichero) {
   std::ifstream archivo(ruta_fichero);
   if (!archivo.is_open()) {
-    std::cerr << "Error: No se pudo abrir el archivo JSON en la ruta: " << ruta_fichero << std::endl;
+    std::cerr << "Error: No se pudo abrir el archivo JSON: " << ruta_fichero << std::endl;
     return nullptr; 
   }
   try {
-    json datos_json;
-    archivo >> datos_json;
-    int dias = datos_json["numero_dias"];
-    std::vector<std::string> empleados = datos_json["empleados"];
-    std::vector<int> dias_descanso = datos_json["descansos_C"];
-    std::vector<std::vector<int>> min_turnos = datos_json["minimos_turno_B"];
-    std::vector<std::vector<std::vector<int>>> satisfaccion = datos_json["satisfaccion_A"];
+    json datos;
+    archivo >> datos;
     archivo.close();
+    int dias = datos["planningHorizon"];
+    int num_empleados = datos["employees"].size();
+    int num_turnos = datos["shifts"].size();
+    std::vector<std::string> empleados;
+    std::vector<int> dias_descanso;
+    for (const auto& emp : datos["employees"]) {
+      empleados.push_back(emp["name"]);
+      dias_descanso.push_back(emp["freeDays"]);
+    }
+    std::vector<std::vector<std::vector<int>>> satisfaccion(
+        num_empleados, std::vector<std::vector<int>>(
+            dias, std::vector<int>(num_turnos, 0)));
+    std::vector<std::vector<int>> min_turnos(
+        dias, std::vector<int>(num_turnos, 0));
+    for (const auto& sat : datos["satisfaction"]) {
+      int e = sat["employee"];
+      int d = sat["day"];
+      int t = sat["shift"];
+      int valor = sat["value"];
+      satisfaccion[e][d][t] = valor;
+    }
+    for (const auto& req : datos["requiredEmployees"]) {
+      int d = req["day"];
+      int t = req["shift"];
+      int valor = req["value"];
+      min_turnos[d][t] = valor;
+    }
     return new InstanciaEmpleados(empleados, dias, satisfaccion, min_turnos, dias_descanso);
   } catch (const json::exception& e) {
-    std::cerr << "Error al parsear el archivo JSON: " << e.what() << std::endl;
-    archivo.close();
+    std::cerr << "Error al parsear la estructura del JSON: " << e.what() << std::endl;
     return nullptr;
   }
 }
