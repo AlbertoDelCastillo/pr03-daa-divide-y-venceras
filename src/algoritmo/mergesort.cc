@@ -23,7 +23,8 @@
  * @param inst Instancia inicial a ordenar.
  */
 MergeSort::MergeSort(Instancia* inst) : DivideYVenceras(inst) {
-  solucion_problema_ = new SolucionVector(inst->GetTamaño());
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  solucion_problema_ = new SolucionVector(inst_vec->GetTamaño());
 }
 
 /**
@@ -33,7 +34,8 @@ MergeSort::MergeSort(Instancia* inst) : DivideYVenceras(inst) {
  * @return true si el tamaño es <= 1, false en caso contrario.
  */
 bool MergeSort::Small(Instancia* inst) {
-  return inst->GetTamaño() <= 1;
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  return inst_vec->GetTamaño() <= 1;
 }
 
 /**
@@ -43,10 +45,10 @@ bool MergeSort::Small(Instancia* inst) {
  * @return Solución ordenada de la instancia.
  */
 Solucion* MergeSort::SolveSmall(Instancia* inst) {
-  InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
-  SolucionVector* solucion = new SolucionVector(inst->GetTamaño());
-  for (int i = 0; i < inst->GetTamaño(); ++i) {
-    solucion->SetDato(i, instancia_vec->GetDato(i));
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  SolucionVector* solucion = new SolucionVector(inst_vec->GetTamaño());
+  for (int i = 0; i < inst_vec->GetTamaño(); ++i) {
+    solucion->SetDato(i, inst_vec->GetDato(i));
   }
   return solucion;
 }
@@ -58,17 +60,17 @@ Solucion* MergeSort::SolveSmall(Instancia* inst) {
  * @param tamaño Tamaño de la instancia.
  * @return Vector con dos subinstancias.
  */
-std::vector<Instancia*> MergeSort::Divide(Instancia* inst, int tamaño) {
-  InstanciaVector* instancia = dynamic_cast<InstanciaVector*>(inst);
+std::vector<Instancia*> MergeSort::Divide(Instancia* inst) {
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
   std::vector<Instancia*> resultado;
-  int mitad = tamaño / 2;
+  int mitad = inst_vec->GetTamaño() / 2;
   InstanciaVector* primera = new InstanciaVector();
   InstanciaVector* segunda = new InstanciaVector();
   for (int i = 0; i < mitad; ++i) {
-    primera->AgregarDato(instancia->GetDato(i));
+    primera->AgregarDato(inst_vec->GetDato(i));
   }
-  for (int i = mitad; i < tamaño; ++i) {
-    segunda->AgregarDato(instancia->GetDato(i));
+  for (int i = mitad; i < inst_vec->GetTamaño(); ++i) {
+    segunda->AgregarDato(inst_vec->GetDato(i));
   }
   resultado.push_back(primera);
   resultado.push_back(segunda);

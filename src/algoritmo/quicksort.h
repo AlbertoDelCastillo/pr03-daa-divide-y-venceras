@@ -66,7 +66,7 @@ class QuickSort : public DivideYVenceras {
    * @param tamaño Tamaño de la instancia.
    * @return Vector con dos subinstancias.
    */
-  std::vector<Instancia*> Divide(Instancia* inst, int tamaño) override;
+  std::vector<Instancia*> Divide(Instancia* inst) override;
 
   /**
    * @brief Combina dos soluciones parciales y el pivote en una solución ordenada.

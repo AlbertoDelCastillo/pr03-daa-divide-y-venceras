@@ -21,7 +21,8 @@
  * @param inst Instancia inicial a ordenar.
  */
 QuickSort::QuickSort(Instancia* inst) : DivideYVenceras(inst) {
-  solucion_problema_ = new SolucionVector(inst->GetTamaño());
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  solucion_problema_ = new SolucionVector(inst_vec->GetTamaño());
 }
 
 /**
@@ -31,7 +32,8 @@ QuickSort::QuickSort(Instancia* inst) : DivideYVenceras(inst) {
  * @return true si el tamaño es <= 1, false en caso contrario.
  */
 bool QuickSort::Small(Instancia* inst) {
-  return inst->GetTamaño() <= 1;
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  return inst_vec->GetTamaño() <= 1;
 }
 
 /**
@@ -41,10 +43,10 @@ bool QuickSort::Small(Instancia* inst) {
  * @return Solución ordenada de la instancia.
  */
 Solucion* QuickSort::SolveSmall(Instancia* inst) {
-  SolucionVector* solucion = new SolucionVector(inst->GetTamaño());
-  if (inst->GetTamaño() == 1) {
-    InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
-    solucion->SetDato(0, instancia_vec->GetDato(0));
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
+  SolucionVector* solucion = new SolucionVector(inst_vec->GetTamaño());
+  if (inst_vec->GetTamaño() == 1) {
+    solucion->SetDato(0, inst_vec->GetDato(0));
   }
   return solucion;
 }
@@ -56,15 +58,15 @@ Solucion* QuickSort::SolveSmall(Instancia* inst) {
  * @param tamaño Tamaño de la instancia.
  * @return Vector con dos subinstancias.
  */
-std::vector<Instancia*> QuickSort::Divide(Instancia* inst, int tamaño) {
-  InstanciaVector* instancia_vec = dynamic_cast<InstanciaVector*>(inst);
+std::vector<Instancia*> QuickSort::Divide(Instancia* inst) {
+  InstanciaVector* inst_vec = dynamic_cast<InstanciaVector*>(inst);
   std::vector<Instancia*> resultado;
-  int pivote_actual = instancia_vec->GetDato(0);
+  int pivote_actual = inst_vec->GetDato(0);
   pila_pivotes_.push(pivote_actual); 
   InstanciaVector* menores = new InstanciaVector();
   InstanciaVector* mayores = new InstanciaVector();
-  for (int i = 1; i < tamaño; ++i) {
-    int valor = instancia_vec->GetDato(i);
+  for (int i = 1; i < inst_vec->GetTamaño(); ++i) {
+    int valor = inst_vec->GetDato(i);
     if (valor <= pivote_actual) {
       menores->AgregarDato(valor);
     } else {

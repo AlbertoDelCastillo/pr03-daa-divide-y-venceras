@@ -23,5 +23,5 @@ add_library(MiCodigo
 )
 
 # Ejecutable principal
-add_executable(programa_principal src/main.cc)
+add_executable(programa_principal src/cliente-divide-y-venceras.cc)
 target_link_libraries(programa_principal MiCodigo)

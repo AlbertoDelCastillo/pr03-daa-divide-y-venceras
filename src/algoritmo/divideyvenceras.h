@@ -50,10 +50,9 @@ class DivideYVenceras : public Algoritmo {
    * @brief Método Solve encargado de resolver el problema usando la lógica de divide y vencerás.
    * Aplica recursivamente la metodología, utilizando los métodos Small, SolveSmall, Divide y Combine.
    * @param inst Instancia a resolver.
-   * @param tamaño Tamaño de la instancia.
    * @return Solución al problema.
    */
-  Solucion* Solve(Instancia* inst, int tamaño);
+  Solucion* Solve(Instancia* inst);
 
   /**
    * @brief Método virtual Small para comprobar la condición de caso base.
@@ -77,7 +76,7 @@ class DivideYVenceras : public Algoritmo {
    * @param tamaño Tamaño de la instancia.
    * @return Vector de subinstancias derivadas de la inicial.
    */
-  virtual std::vector<Instancia*> Divide(Instancia* inst, int tamaño) = 0;
+  virtual std::vector<Instancia*> Divide(Instancia* inst) = 0;
   
   /**
    * @brief Método virtual Combine para unir soluciones parciales.

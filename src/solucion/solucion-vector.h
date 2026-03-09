@@ -45,12 +45,12 @@ class SolucionVector : public Solucion {
    */
   void Mostrar() override;
 
-  /**
-   * @brief Copia los valores de otra solución en esta.
-   * Override del método virtual de Solucion.
-   * @param otra Otra solución de la cual se van a copiar los datos.
-   */
-  void CopiarValores(Solucion* otra) override;
+  // /**
+  //  * @brief Copia los valores de otra solución en esta.
+  //  * Override del método virtual de Solucion.
+  //  * @param otra Otra solución de la cual se van a copiar los datos.
+  //  */
+  // void CopiarValores(Solucion* otra) override;
 
   /**
    * @brief Obtiene el tamaño del vector de solución.
