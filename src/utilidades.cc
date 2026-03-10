@@ -105,8 +105,7 @@ void ModoDebug() {
 }
 
 /**
- * @brief 
- * 
+ * @brief Ejecuta el modo empleados: solicita ruta JSON, resuelve y muestra la planificación.
  */
 void ModoEmpleados() {
   std::string ruta;

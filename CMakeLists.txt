@@ -41,13 +41,9 @@ add_library(MiCodigo
 target_include_directories(MiCodigo PUBLIC ${nlohmann_json_SOURCE_DIR}/include)
 
 # Primer ejecutable (primer punto)
-add_executable(programa_divide-y-venceras src/cliente-divide-y-venceras.cc)
+add_executable(programa_divide-y-venceras src/main.cc)
 
-# Segundo ejecutable (segundo punto)
-add_executable(cliente-empleados src/cliente-empleados.cc)
 
 target_link_libraries(programa_divide-y-venceras PRIVATE MiCodigo)
-target_link_libraries(cliente-empleados PRIVATE MiCodigo nlohmann_json::nlohmann_json)
-target_include_directories(cliente-empleados PRIVATE src/empleados)
 target_include_directories(programa_divide-y-venceras PRIVATE src/empleados src/lector src/instancias src/solucion)
 target_include_directories(MiCodigo PUBLIC ${nlohmann_json_SOURCE_DIR}/include src/empleados src/lector)
