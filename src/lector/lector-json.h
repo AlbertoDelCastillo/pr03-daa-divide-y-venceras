@@ -15,7 +15,7 @@
  * @version 1.0
  */
 
-#ifndef LECTOR_JSON_
+#ifndef LECTOR_JSON_H
 #define LECTOR_JSON_H
 
 #include <string>
