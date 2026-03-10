@@ -118,7 +118,7 @@ void ModoEmpleados() {
     delete lector;
     return;
   }
-  problema->Mostrar();
+  // problema->Mostrar();
   PlanificacionEmpleados algoritmo(problema);
   Solucion* solucion = algoritmo.Solve(problema);
   solucion->Mostrar();

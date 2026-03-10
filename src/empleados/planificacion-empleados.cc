@@ -216,6 +216,7 @@ std::pair<int,int> PlanificacionEmpleados::RecalcularCalidad(SolucionEmpleados* 
   }
   return {suma_sat, turnos_cub};
 }
+
 /**
  * @brief Combina dos soluciones parciales en una solución global.
  * @param sol1 Solución de la primera mitad.
