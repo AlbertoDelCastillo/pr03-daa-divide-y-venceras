@@ -1,21 +1,25 @@
 #include <iostream>
 #include <string>
-
+#include "utilidades.h"
 #include "lector-json.h"
 #include "instancia-empleados.h"
+#include "planificacion-empleados.h"
 
 int main() {
-  std::cout << "Iniciando prueba de lectura JSON..." << std::endl;
-  std::string ruta_archivo = "../test/instance_horizon7_employees5_shifts3_000.json"; 
-  LectorInstancia* lector = new LectorJSON();
-  Instancia* problema_empleados = lector->LeerDesdeFichero(ruta_archivo);
-  if (problema_empleados != nullptr) {
-    std::cout << "¡Lectura exitosa! Mostrando datos extraidos:" << std::endl;
-    problema_empleados->Mostrar();
-    delete problema_empleados;
+  std::cout << "1. Ordenacion\n2. Planificacion de Empleados\nOpcion: ";
+  int modo;
+  std::cin >> modo;
+  if (modo == 1) {
+    std::cout << "1. Normal\n2. Debug\nOpcion: ";
+    int submodo;
+    std::cin >> submodo;
+    if (submodo == 1) ModoNormal();
+    else if (submodo == 2) ModoDebug();
+    else std::cout << "Opcion no valida." << std::endl;
+  } else if (modo == 2) {
+    ModoEmpleados();
   } else {
-    std::cerr << "Fallo al cargar la instancia. Revisa la ruta y el formato del JSON." << std::endl;
+    std::cout << "Opcion no valida." << std::endl;
   }
-  delete lector;
   return 0;
 }

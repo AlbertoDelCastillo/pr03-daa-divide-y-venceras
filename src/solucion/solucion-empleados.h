@@ -35,6 +35,7 @@ class SolucionEmpleados : public Solucion {
   int GetNumDias() const { return num_dias_; }
   int GetNumEmpleados() const { return num_empleados_; }
   ~SolucionEmpleados() = default;
+  void ActualizarCalidad(int, int);
 
  private:
   int CalcularCalidad(int, int);

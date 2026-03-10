@@ -7,16 +7,6 @@
 #include "instancia.h"
 
 /**
- * @enum Turno
- * @brief Enumeración para representar los turnos de trabajo posibles.
- */
-enum class Turno { 
-  MANANA = 0, 
-  TARDE = 1, 
-  NOCHE = 2 
-};
-
-/**
  * @class InstanciaEmpleados
  * @brief Representa una instancia del problema de planificación de empleados.
  *        Almacena información sobre empleados, días, satisfacción, mínimos por turno y descansos.
@@ -42,6 +32,9 @@ class InstanciaEmpleados : public Instancia {
    */
   ~InstanciaEmpleados() = default;
 
+  InstanciaEmpleados* SubInstancia(int, int, const std::vector<int>&) const;
+
+
   /**
    * @brief Muestra por pantalla un resumen de la instancia de empleados.
    *        Incluye número de días, empleados y sus descansos requeridos.
@@ -53,6 +46,9 @@ class InstanciaEmpleados : public Instancia {
    * @return Número de empleados.
    */
   int GetNumEmpleados() const;
+
+  int GetNumTurnos() const;
+
 
   /**
    * @brief Obtiene el número total de días a planificar.
@@ -74,7 +70,7 @@ class InstanciaEmpleados : public Instancia {
    * @param turno Turno a consultar.
    * @return Valor de satisfacción.
    */
-  int GetSatisfaccion(int indice_empleado, int dia, Turno turno) const;
+  int GetSatisfaccion(int indice_empleado, int dia, int) const;
 
   /**
    * @brief Obtiene el mínimo de empleados requeridos para un día y turno concreto.
@@ -82,7 +78,7 @@ class InstanciaEmpleados : public Instancia {
    * @param turno Turno a consultar.
    * @return Mínimo de empleados requeridos.
    */
-  int GetMinTurnos(int dia, Turno turno) const;
+  int GetMinTurnos(int dia, int) const;
 
   /**
    * @brief Obtiene los días de descanso requeridos por un empleado.
@@ -92,11 +88,11 @@ class InstanciaEmpleados : public Instancia {
   int GetDiasDescanso(int indice_empleado) const;  
   
  private:
-  std::vector<std::string> empleados_; ///< Nombres de los empleados.
-  int dias_; ///< Número de días a planificar.
-  std::vector<std::vector<std::vector<int>>> satisfaccion_; ///< Satisfacción por empleado, día y turno.
-  std::vector<std::vector<int>> min_turnos_; ///< Mínimo de empleados por día y turno.
-  std::vector<int> dias_descanso_; ///< Días de descanso requeridos por empleado.
+  std::vector<std::string> empleados_;
+  int dias_;
+  std::vector<std::vector<std::vector<int>>> satisfaccion_;
+  std::vector<std::vector<int>> min_turnos_;
+  std::vector<int> dias_descanso_;
 };
 
 #endif

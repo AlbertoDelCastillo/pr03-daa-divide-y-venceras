@@ -81,3 +81,12 @@ int SolucionEmpleados::GetAsignacion(int empleado, int dia) const {
 void SolucionEmpleados::SetAsignacion(int empleado, int dia, int turno) {
   asignacion_[empleado][dia] = turno;
 }
+
+/**
+ * @brief Actualiza la calidad de la solución con nuevos valores.
+ * @param suma_sat Nueva suma de satisfacción.
+ * @param turnos_cub Nuevo número de turnos cubiertos.
+ */
+void SolucionEmpleados::ActualizarCalidad(int suma_sat, int turnos_cub) {
+  calidad_ = CalcularCalidad(suma_sat, turnos_cub);
+}

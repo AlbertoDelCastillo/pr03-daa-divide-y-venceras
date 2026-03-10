@@ -1,0 +1,45 @@
+{
+  "planningHorizon": 4,
+  "shifts": ["T0", "T1"],
+  "employees": [
+    {"name": "Empleado 0", "freeDays": 1},
+    {"name": "Empleado 1", "freeDays": 0},
+    {"name": "Empleado 2", "freeDays": 2}
+  ],
+  "satisfaction": [
+    {"employee": 0, "day": 0, "shift": 0, "value": 5},
+    {"employee": 0, "day": 0, "shift": 1, "value": 3},
+    {"employee": 0, "day": 1, "shift": 0, "value": 2},
+    {"employee": 0, "day": 1, "shift": 1, "value": 8},
+    {"employee": 0, "day": 2, "shift": 0, "value": 6},
+    {"employee": 0, "day": 2, "shift": 1, "value": 4},
+    {"employee": 0, "day": 3, "shift": 0, "value": 1},
+    {"employee": 0, "day": 3, "shift": 1, "value": 9},
+    {"employee": 1, "day": 0, "shift": 0, "value": 7},
+    {"employee": 1, "day": 0, "shift": 1, "value": 2},
+    {"employee": 1, "day": 1, "shift": 0, "value": 4},
+    {"employee": 1, "day": 1, "shift": 1, "value": 6},
+    {"employee": 1, "day": 2, "shift": 0, "value": 3},
+    {"employee": 1, "day": 2, "shift": 1, "value": 8},
+    {"employee": 1, "day": 3, "shift": 0, "value": 9},
+    {"employee": 1, "day": 3, "shift": 1, "value": 1},
+    {"employee": 2, "day": 0, "shift": 0, "value": 1},
+    {"employee": 2, "day": 0, "shift": 1, "value": 5},
+    {"employee": 2, "day": 1, "shift": 0, "value": 8},
+    {"employee": 2, "day": 1, "shift": 1, "value": 3},
+    {"employee": 2, "day": 2, "shift": 0, "value": 2},
+    {"employee": 2, "day": 2, "shift": 1, "value": 7},
+    {"employee": 2, "day": 3, "shift": 0, "value": 4},
+    {"employee": 2, "day": 3, "shift": 1, "value": 6}
+  ],
+  "requiredEmployees": [
+    {"day": 0, "shift": 0, "value": 1},
+    {"day": 0, "shift": 1, "value": 1},
+    {"day": 1, "shift": 0, "value": 1},
+    {"day": 1, "shift": 1, "value": 1},
+    {"day": 2, "shift": 0, "value": 1},
+    {"day": 2, "shift": 1, "value": 1},
+    {"day": 3, "shift": 0, "value": 1},
+    {"day": 3, "shift": 1, "value": 1}
+  ]
+}

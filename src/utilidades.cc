@@ -103,3 +103,28 @@ void ModoDebug() {
     std::cout << "Opción no válida.\n";
   }
 }
+
+/**
+ * @brief 
+ * 
+ */
+void ModoEmpleados() {
+  std::string ruta;
+  std::cout << "Introduzca la ruta del archivo JSON: ";
+  std::cin >> ruta;
+  LectorInstancia* lector = new LectorJSON();
+  Instancia* problema = lector->LeerDesdeFichero(ruta);
+  if (problema == nullptr) {
+    std::cerr << "Fallo al cargar la instancia." << std::endl;
+    delete lector;
+    return;
+  }
+  problema->Mostrar();
+  PlanificacionEmpleados algoritmo(problema);
+  Solucion* solucion = algoritmo.Solve(problema);
+  solucion->Mostrar();
+  algoritmo.MostrarCobertura(solucion, dynamic_cast<InstanciaEmpleados*>(problema));
+  delete solucion;
+  delete problema;
+  delete lector;
+}

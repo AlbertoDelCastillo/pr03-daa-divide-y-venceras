@@ -29,6 +29,9 @@
 #include "instancia-vector.h"
 #include "mergesort.h"
 #include "quicksort.h"
+#include "lector-json.h"
+#include "instancia-empleados.h"
+#include "planificacion-empleados.h"
 
 /**
  * @brief Muestra una tabla comparativa de tiempos de ejecución.
@@ -54,5 +57,8 @@ void ModoNormal();
  * y la solución final ordenada por pantalla.
  */
 void ModoDebug();
+
+void ModoEmpleados();
+
 
 #endif

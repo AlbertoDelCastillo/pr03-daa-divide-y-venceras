@@ -24,7 +24,7 @@ FetchContent_Declare(
 # Hacer que la librería esté disponible para nuestro proyecto
 FetchContent_MakeAvailable(json)
 
-add_library(MiCodigo 
+add_library(MiCodigo
     src/algoritmo/divideyvenceras.cc
     src/algoritmo/mergesort.cc
     src/algoritmo/quicksort.cc
@@ -32,6 +32,8 @@ add_library(MiCodigo
     src/instancias/instancia-empleados.cc
     src/lector/lector-json.cc
     src/solucion/solucion-vector.cc
+    src/solucion/solucion-empleados.cc
+    src/empleados/planificacion-empleados.cc
     src/utilidades.cc
 )
 
@@ -46,3 +48,6 @@ add_executable(cliente-empleados src/cliente-empleados.cc)
 
 target_link_libraries(programa_divide-y-venceras PRIVATE MiCodigo)
 target_link_libraries(cliente-empleados PRIVATE MiCodigo nlohmann_json::nlohmann_json)
+target_include_directories(cliente-empleados PRIVATE src/empleados)
+target_include_directories(programa_divide-y-venceras PRIVATE src/empleados src/lector src/instancias src/solucion)
+target_include_directories(MiCodigo PUBLIC ${nlohmann_json_SOURCE_DIR}/include src/empleados src/lector)

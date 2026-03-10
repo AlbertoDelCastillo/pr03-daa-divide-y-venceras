@@ -19,6 +19,36 @@ InstanciaEmpleados::InstanciaEmpleados(const std::vector<std::string>& empleados
       min_turnos_(min_turnos), 
       dias_descanso_(dias_descanso) {}
 
+
+      /**
+ * @brief Crea una subinstancia con un rango de días y freeDays personalizados.
+ * @param dia_inicio Día de inicio del rango (inclusivo).
+ * @param dia_fin Día de fin del rango (exclusivo).
+ * @param free_days FreeDays de cada empleado para esta subinstancia.
+ * @return Puntero a la nueva subinstancia.
+ */
+InstanciaEmpleados* InstanciaEmpleados::SubInstancia(int dia_inicio, int dia_fin, const std::vector<int>& free_days) const {
+  int num_dias = dia_fin - dia_inicio;
+  int num_emp = GetNumEmpleados();
+  int num_turnos = GetNumTurnos();
+  std::vector<std::vector<std::vector<int>>> sat_sub(
+    num_emp, std::vector<std::vector<int>>(num_dias, std::vector<int>(num_turnos, 0)));
+  std::vector<std::vector<int>> min_sub(num_dias, std::vector<int>(num_turnos, 0));
+  for (int e = 0; e < num_emp; ++e) {
+    for (int d = 0; d < num_dias; ++d) {
+      for (int t = 0; t < num_turnos; ++t) {
+        sat_sub[e][d][t] = satisfaccion_[e][dia_inicio + d][t];
+      }
+    }
+  }
+  for (int d = 0; d < num_dias; ++d) {
+    for (int t = 0; t < num_turnos; ++t) {
+      min_sub[d][t] = min_turnos_[dia_inicio + d][t];
+    }
+  }
+  return new InstanciaEmpleados(empleados_, num_dias, sat_sub, min_sub, free_days);
+}
+
 /**
  * @brief Muestra por pantalla un resumen de la instancia de empleados.
  * Incluye número de días, empleados y sus descansos requeridos.
@@ -62,14 +92,23 @@ std::string InstanciaEmpleados::GetNombreEmpleado(int indice_empleado) const {
 }
 
 /**
+ * @brief Obtiene el número de turnos disponibles.
+ * @return Número de turnos.
+ */
+int InstanciaEmpleados::GetNumTurnos() const {
+  return min_turnos_[0].size();
+}
+
+
+/**
  * @brief Obtiene la satisfacción de un empleado en un día y turno concreto.
  * @param indice_empleado Índice del empleado.
  * @param dia Día a consultar.
  * @param turno Turno a consultar.
  * @return Valor de satisfacción.
  */
-int InstanciaEmpleados::GetSatisfaccion(int indice_empleado, int dia, Turno turno) const {
-  return satisfaccion_[indice_empleado][dia][static_cast<int>(turno)];
+int InstanciaEmpleados::GetSatisfaccion(int indice_empleado, int dia, int turno) const {
+  return satisfaccion_[indice_empleado][dia][turno];
 }
 
 /**
@@ -78,8 +117,8 @@ int InstanciaEmpleados::GetSatisfaccion(int indice_empleado, int dia, Turno turn
  * @param turno Turno a consultar.
  * @return Mínimo de empleados requeridos.
  */
-int InstanciaEmpleados::GetMinTurnos(int dia, Turno turno) const {
-  return min_turnos_[dia][static_cast<int>(turno)];
+int InstanciaEmpleados::GetMinTurnos(int dia, int turno) const {
+  return min_turnos_[dia][turno];
 }
 
 /**
