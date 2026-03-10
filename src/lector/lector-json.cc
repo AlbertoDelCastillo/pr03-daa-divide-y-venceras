@@ -1,5 +1,21 @@
-#include "lector-json.h"
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos 2025-2026
+ * 3º Año de Carrera
+ * Práctica 3: Divide y Vencerás - Planificación de Empleados
+ *
+ * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
+ * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
+ * @file lector-json.cc
+ * @brief Implementación de la clase LectorJSON para el parseo de ficheros JSON
+ *        mediante la librería nlohmann/json.
+ * @date Mar 8 2026
+ * @version 1.0
+ */
 
+#include "lector-json.h"
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>

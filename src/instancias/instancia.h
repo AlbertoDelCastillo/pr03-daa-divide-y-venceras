@@ -8,14 +8,10 @@
  *
  * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
  * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
- * @brief Clase abstracta para representar instancias de datos de entrada de algoritmos.
- * @date Mar 8 2026
- * @version 1.0
- */
-
-/**
  * @file instancia.h
  * @brief Declaración de la clase abstracta Instancia para representar datos de entrada.
+ * @date Mar 8 2026
+ * @version 1.0
  */
 
 #ifndef INSTANCIA_H

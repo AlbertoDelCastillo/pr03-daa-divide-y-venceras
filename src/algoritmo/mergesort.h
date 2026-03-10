@@ -27,52 +27,14 @@
  */
 class MergeSort : public DivideYVenceras {
  public:
-  /**
-   * @brief Constructor de MergeSort.
-   * Inicializa el algoritmo con la instancia a ordenar.
-   * @param inst Instancia inicial a ordenar.
-   */
-  MergeSort(Instancia* inst);
-
-  /**
-   * @brief Destructor por defecto.
-   */
+  MergeSort(Instancia*);
   ~MergeSort() = default;
 
  private:
-  /**
-   * @brief Determina si la instancia es suficientemente pequeña para resolver directamente.
-   * Caso base: instancia de tamaño <= 1.
-   * @param inst Instancia a evaluar.
-   * @return true si el tamaño es <= 1, false en caso contrario.
-   */
-  bool Small(Instancia* inst) override;
-
-  /**
-   * @brief Resuelve el caso base de una instancia pequeña.
-   * Si la instancia tiene 0 o 1 elemento, ya está ordenada.
-   * @param inst Instancia pequeña a resolver.
-   * @return Solución ordenada de la instancia.
-   */
-  Solucion* SolveSmall(Instancia* inst) override;
-
-  /**
-   * @brief Divide la instancia en dos mitades iguales.
-   * Separa el vector en dos subinstancias para aplicar recursión.
-   * @param inst Instancia a dividir.
-   * @param tamaño Tamaño de la instancia.
-   * @return Vector con dos subinstancias.
-   */
-  std::vector<Instancia*> Divide(Instancia* inst) override;
-
-  /**
-   * @brief Combina dos soluciones ordenadas en una sola solución ordenada.
-   * Realiza el proceso de mezcla (merge) de dos vectores ordenados.
-   * @param sol_parcial_1 Primera solución parcial ordenada.
-   * @param sol_parcial_2 Segunda solución parcial ordenada.
-   * @return Solución combinada y ordenada.
-   */
-  Solucion* Combine(Solucion* sol_parcial_1, Solucion* sol_parcial_2) override;
+  bool Small(Instancia*) override;
+  Solucion* SolveSmall(Instancia*) override;
+  std::vector<Instancia*> Divide(Instancia*) override;
+  Solucion* Combine(Solucion*, Solucion*) override;
 };
 
 #endif

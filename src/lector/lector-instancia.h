@@ -1,3 +1,20 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos 2025-2026
+ * 3º Año de Carrera
+ * Práctica 3: Divide y Vencerás - Planificación de Empleados
+ *
+ * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
+ * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
+ * @file lector-instancia.h
+ * @brief Declaración de la interfaz abstracta LectorInstancia para la lectura
+ *        de instancias del problema desde ficheros externos.
+ * @date Mar 8 2026
+ * @version 1.0
+ */
+
 #ifndef LECTOR_INSTANCIA_H
 #define LECTOR_INSTANCIA_H
 

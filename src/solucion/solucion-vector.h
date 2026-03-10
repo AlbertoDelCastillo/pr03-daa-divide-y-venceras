@@ -8,14 +8,10 @@
  *
  * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
  * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
- * @brief Implementación de la clase SolucionVector para representar soluciones de ordenación.
- * @date Mar 8 2026
- * @version 1.0
- */
-
-/**
  * @file solucion-vector.h
  * @brief Declaración de la clase SolucionVector para representar soluciones de tipo vector de enteros.
+ * @date Mar 8 2026
+ * @version 1.0
  */
 
 #ifndef SOLUCION_VECTOR_H
@@ -32,48 +28,14 @@
  */
 class SolucionVector : public Solucion {
  public:
-  /**
-   * @brief Constructor de la clase SolucionVector.
-   * Inicializa el vector de solución con el tamaño especificado.
-   * @param tamaño Tamaño inicial del vector de solución.
-   */
   SolucionVector(int tamaño = 0);
-
-  /**
-   * @brief Muestra los valores de la solución por pantalla.
-   * Override del método virtual de Solucion.
-   */
   void Mostrar() override;
-
-  // /**
-  //  * @brief Copia los valores de otra solución en esta.
-  //  * Override del método virtual de Solucion.
-  //  * @param otra Otra solución de la cual se van a copiar los datos.
-  //  */
-  // void CopiarValores(Solucion* otra) override;
-
-  /**
-   * @brief Obtiene el tamaño del vector de solución.
-   * @return Tamaño de los datos.
-   */
   int GetTamaño();
-
-  /**
-   * @brief Obtiene el dato en la posición indicada.
-   * @param indice Posición del dato.
-   * @return Valor del dato en esa posición.
-   */
   int GetDato(int indice) const;
-
-  /**
-   * @brief Establece el dato en la posición indicada.
-   * @param indice Posición del dato.
-   * @param valor Valor a establecer.
-   */
   void SetDato(int indice, int valor);
 
  private:
-  std::vector<int> datos_; ///< Vector de datos enteros de la solución.
+  std::vector<int> datos_;
 };
 
 #endif

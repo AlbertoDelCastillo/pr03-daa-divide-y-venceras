@@ -1,3 +1,20 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos 2025-2026
+ * 3º Año de Carrera
+ * Práctica 3: Divide y Vencerás - Planificación de Empleados
+ *
+ * @author Alberto Del Castillo Díaz alu0101627137@ull.edu.es
+ * @author Bruno Morales Hernandez alu0101664309@ull.edu.es
+ * @file instancia-empleados.h
+ * @brief Declaración de la clase InstanciaEmpleados para representar instancias
+ *        del problema de planificación de turnos de empleados.
+ * @date Mar 8 2026
+ * @version 1.0
+ */
+
 #ifndef INSTANCIAS_EMPLEADOS_H
 #define INSTANCIAS_EMPLEADOS_H
 
@@ -13,79 +30,18 @@
  */
 class InstanciaEmpleados : public Instancia {
  public:
-  /**
-   * @brief Constructor de InstanciaEmpleados.
-   * @param empleados Vector con los nombres de los empleados.
-   * @param dias Número de días a planificar.
-   * @param satisfaccion Matriz tridimensional con la satisfacción de cada empleado por día y turno.
-   * @param min_turnos Matriz bidimensional con el mínimo de empleados requeridos por día y turno.
-   * @param dias_descanso Vector con los días de descanso requeridos por cada empleado.
-   */
-  InstanciaEmpleados(const std::vector<std::string>& empleados, 
-                     int dias, 
-                     const std::vector<std::vector<std::vector<int>>>& satisfaccion,
-                     const std::vector<std::vector<int>>& min_turnos,
-                     const std::vector<int>& dias_descanso);
-
-  /**
-   * @brief Destructor por defecto.
-   */
+  InstanciaEmpleados(const std::vector<std::string>&, int, const std::vector<std::vector<std::vector<int>>>&,
+                     const std::vector<std::vector<int>>&, const std::vector<int>&);
   ~InstanciaEmpleados() = default;
-
   InstanciaEmpleados* SubInstancia(int, int, const std::vector<int>&) const;
-
-
-  /**
-   * @brief Muestra por pantalla un resumen de la instancia de empleados.
-   *        Incluye número de días, empleados y sus descansos requeridos.
-   */
   void Mostrar() override;
-
-  /**
-   * @brief Obtiene el número total de empleados.
-   * @return Número de empleados.
-   */
   int GetNumEmpleados() const;
-
   int GetNumTurnos() const;
-
-
-  /**
-   * @brief Obtiene el número total de días a planificar.
-   * @return Número de días.
-   */
   int GetNumDias() const;
-
-  /**
-   * @brief Obtiene el nombre de un empleado dado su índice.
-   * @param indice_empleado Índice del empleado.
-   * @return Nombre del empleado.
-   */
-  std::string GetNombreEmpleado(int indice_empleado) const;
-  
-  /**
-   * @brief Obtiene la satisfacción de un empleado en un día y turno concreto.
-   * @param indice_empleado Índice del empleado.
-   * @param dia Día a consultar.
-   * @param turno Turno a consultar.
-   * @return Valor de satisfacción.
-   */
-  int GetSatisfaccion(int indice_empleado, int dia, int) const;
-
-  /**
-   * @brief Obtiene el mínimo de empleados requeridos para un día y turno concreto.
-   * @param dia Día a consultar.
-   * @param turno Turno a consultar.
-   * @return Mínimo de empleados requeridos.
-   */
-  int GetMinTurnos(int dia, int) const;
-
-  /**
-   * @brief Obtiene los días de descanso requeridos por un empleado.
-   * @param indice_empleado Índice del empleado.
-   * @return Número de días de descanso requeridos.
-   */
-  int GetDiasDescanso(int indice_empleado) const;  
+  std::string GetNombreEmpleado(int) const;
+  int GetSatisfaccion(int, int, int) const;
+  int GetMinTurnos(int, int) const;
+  int GetDiasDescanso(int) const;  
   
  private:
   std::vector<std::string> empleados_;
