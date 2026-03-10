@@ -65,7 +65,8 @@ std::vector<Instancia*> PlanificacionEmpleados::Divide(Instancia* inst) {
  * Fuerza el descanso de empleados con freeDays >= 1, luego asigna por máxima satisfacción turno a turno.
  * @param inst Instancia de 1 día a resolver.
  * @return Solución para ese día.
- */Solucion* PlanificacionEmpleados::SolveSmall(Instancia* inst) {
+ */
+Solucion* PlanificacionEmpleados::SolveSmall(Instancia* inst) {
   InstanciaEmpleados* inst_emp = dynamic_cast<InstanciaEmpleados*>(inst);
   int num_emp = inst_emp->GetNumEmpleados();
   int num_turnos = inst_emp->GetNumTurnos();
@@ -152,14 +153,30 @@ void PlanificacionEmpleados::AjustarDescansos(SolucionEmpleados* sol, int e) {
   }
   while (descansos_reales < descansos_necesarios) {
     int peor_dia = -1;
-    int peor_sat = std::numeric_limits<int>::max();
+    int mayor_superavit = -1;
     for (int d = 0; d < dias_total; ++d) {
       int t = sol->GetAsignacion(e, d);
       if (t == -1) continue;
-      int sat = instancia_empleados_->GetSatisfaccion(e, d, t);
-      if (sat < peor_sat) {
-        peor_sat = sat;
+      int asignados = 0;
+      for (int ee = 0; ee < sol->GetNumEmpleados(); ++ee) {
+        if (sol->GetAsignacion(ee, d) == t) asignados++;
+      }
+      int superavit = asignados - instancia_empleados_->GetMinTurnos(d, t);
+      if (superavit > mayor_superavit) {
+        mayor_superavit = superavit;
         peor_dia = d;
+      }
+    }
+    if (mayor_superavit <= 0) {
+      int peor_sat = std::numeric_limits<int>::max();
+      for (int d = 0; d < dias_total; ++d) {
+        int t = sol->GetAsignacion(e, d);
+        if (t == -1) continue;
+        int sat = instancia_empleados_->GetSatisfaccion(e, d, t);
+        if (sat < peor_sat) {
+          peor_sat = sat;
+          peor_dia = d;
+        }
       }
     }
     if (peor_dia != -1) {
