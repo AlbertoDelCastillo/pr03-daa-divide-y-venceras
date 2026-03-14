@@ -36,7 +36,7 @@ void ConfiguracionAlgoritmo::AñadirConfiguracion(const std::string& clave,
   if (claveIncluida != configuraciones_.end()) {
     throw std::invalid_argument("La clave '" + clave + "' ya existe en la configuracion");
   }
-  configuraciones_.insert(clave, valor);
+  configuraciones_.emplace(clave, valor);
 }
 
 /**

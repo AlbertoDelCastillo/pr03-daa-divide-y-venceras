@@ -20,6 +20,7 @@
 #include "divideyvenceras.h"
 #include "instancia-empleados.h"
 #include "solucion-empleados.h"
+#include "small-solver/small-solver.h"
 
 /**
  * @class PlanificacionEmpleados
@@ -29,8 +30,8 @@
  */
 class PlanificacionEmpleados : public DivideYVenceras {
  public:
-  PlanificacionEmpleados(Instancia*);
-  ~PlanificacionEmpleados() = default;
+  PlanificacionEmpleados(Instancia*, SmallSolver*);
+  ~PlanificacionEmpleados();
   void MostrarCobertura(Solucion*, InstanciaEmpleados*) const;
 
  private:
@@ -39,6 +40,7 @@ class PlanificacionEmpleados : public DivideYVenceras {
   std::vector<int> OrdenarTurnosPorDificultad(InstanciaEmpleados*, const std::vector<bool>&) const;
   std::pair<int,int> RecalcularCalidad(SolucionEmpleados*);
   InstanciaEmpleados* instancia_empleados_;
+  SmallSolver* small_solver_;
   bool Small(Instancia*) override;
   Solucion* SolveSmall(Instancia*) override;
   std::vector<Instancia*> Divide(Instancia*) override;

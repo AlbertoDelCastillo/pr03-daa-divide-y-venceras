@@ -6,9 +6,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(
     src/algoritmo
+    src/algoritmo/small-solver
+    src/config
+    src/fabrica
     src/instancias
     src/solucion
     src/lector
+    src/empleados
     src
 )
 
@@ -28,8 +32,13 @@ add_library(MiCodigo
     src/algoritmo/divideyvenceras.cc
     src/algoritmo/mergesort.cc
     src/algoritmo/quicksort.cc
+    src/algoritmo/small-solver/solver-gready.cc
+    src/algoritmo/small-solver/solver-pd.cc
+    src/config/configuracion-algoritmo.cc
+    src/fabrica/fabrica-algoritmo.cc
     src/instancias/instancia-vector.cc
     src/instancias/instancia-empleados.cc
+    src/lector/lector-configuracion-json.cc
     src/lector/lector-json.cc
     src/solucion/solucion-vector.cc
     src/solucion/solucion-empleados.cc

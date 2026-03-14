@@ -20,6 +20,7 @@
  */
 
 #include "utilidades.h"
+#include "small-solver/solver-gready.h"
 
 /**
  * @brief Muestra una tabla comparativa de tiempos de ejecución.
@@ -119,7 +120,7 @@ void ModoEmpleados() {
     return;
   }
   // problema->Mostrar();
-  PlanificacionEmpleados algoritmo(problema);
+  PlanificacionEmpleados algoritmo(problema, new SolverGready());
   Solucion* solucion = algoritmo.Solve(problema);
   solucion->Mostrar();
   algoritmo.MostrarCobertura(solucion, dynamic_cast<InstanciaEmpleados*>(problema));

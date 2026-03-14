@@ -16,19 +16,32 @@
 #include "planificacion-empleados.h"
 #include <limits>
 #include <iostream>
+#include <stdexcept>
 
 /**
  * @brief Constructor de PlanificacionEmpleados.
- * Inicializa el algoritmo con la instancia del problema y guarda el puntero tipado.
+ * Inicializa el algoritmo con la instancia del problema y el resolvedor de casos pequeños.
  * @param inst Instancia inicial del problema de planificación.
+ * @param small_solver Estrategia para resolver el caso base.
  */
-PlanificacionEmpleados::PlanificacionEmpleados(Instancia* inst) : DivideYVenceras(inst) {
+PlanificacionEmpleados::PlanificacionEmpleados(Instancia* inst, SmallSolver* small_solver)
+    : DivideYVenceras(inst), small_solver_(small_solver) {
   instancia_empleados_ = dynamic_cast<InstanciaEmpleados*>(inst);
+  if (instancia_empleados_ == nullptr) {
+    throw std::invalid_argument("Error: la instancia no es de tipo InstanciaEmpleados");
+  }
+  if (small_solver_ == nullptr) {
+    throw std::invalid_argument("Error: small_solver no puede ser nullptr");
+  }
   solucion_problema_ = new SolucionEmpleados(
     instancia_empleados_->GetNumEmpleados(),
     instancia_empleados_->GetNumDias(),
     0, 0
   );
+}
+
+PlanificacionEmpleados::~PlanificacionEmpleados() {
+  delete small_solver_;
 }
 
 /**
@@ -61,32 +74,12 @@ std::vector<Instancia*> PlanificacionEmpleados::Divide(Instancia* inst) {
 }
 
 /**
- * @brief Resuelve el caso base de 1 día mediante un algoritmo voraz.
- * Fuerza el descanso de empleados con freeDays >= 1, luego asigna por máxima satisfacción turno a turno.
+ * @brief Resuelve el caso base delegando en la estrategia inyectada.
  * @param inst Instancia de 1 día a resolver.
  * @return Solución para ese día.
  */
 Solucion* PlanificacionEmpleados::SolveSmall(Instancia* inst) {
-  InstanciaEmpleados* inst_emp = dynamic_cast<InstanciaEmpleados*>(inst);
-  int num_emp = inst_emp->GetNumEmpleados();
-  int num_turnos = inst_emp->GetNumTurnos();
-  SolucionEmpleados* sol = new SolucionEmpleados(num_emp, 1, 0, 0);
-  for (int t = 0; t < num_turnos; ++t) {
-    int mejor_emp = -1;
-    int mejor_sat = std::numeric_limits<int>::min();
-    for (int e = 0; e < num_emp; ++e) {
-      if (sol->GetAsignacion(e, 0) != -1) continue;
-      int sat = inst_emp->GetSatisfaccion(e, 0, t);
-      if (sat > mejor_sat) {
-        mejor_sat = sat;
-        mejor_emp = e;
-      }
-    }
-    if (mejor_emp != -1) {
-      sol->SetAsignacion(mejor_emp, 0, t);
-    }
-  }
-  return sol;
+  return small_solver_->ResolverDiaPequeño(inst);
 }
 
 /**
