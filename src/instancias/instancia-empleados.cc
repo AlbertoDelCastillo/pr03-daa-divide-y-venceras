@@ -37,7 +37,7 @@ InstanciaEmpleados::InstanciaEmpleados(const std::vector<std::string>& empleados
       dias_descanso_(dias_descanso) {}
 
 
-      /**
+/**
  * @brief Crea una subinstancia con un rango de días y freeDays personalizados.
  * @param dia_inicio Día de inicio del rango (inclusivo).
  * @param dia_fin Día de fin del rango (exclusivo).
