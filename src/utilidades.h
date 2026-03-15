@@ -55,7 +55,7 @@ struct Argumentos {
 
 Argumentos ParsearArgumentos(int, char**);
 void MostrarAyuda(const std::string&);
-void MostrarTablaComparativa(const std::vector<ResultadoExperimento>&, const std::vector<ResultadoExperimento>&);
+void MostrarTablaComparativa(const std::vector<ResultadoExperimento>&, const std::vector<ResultadoExperimento>&, const std::vector<ResultadoExperimento>&);
 void ModoExperimentacion();
 void ModoEmpleados(const std::string&, const std::string&);
 

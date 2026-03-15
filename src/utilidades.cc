@@ -144,21 +144,29 @@ void MostrarAyuda(const std::string& nombre_programa) {
  * @param resultados_greedy Vector de resultados del algoritmo Greedy.
  */
 void MostrarTablaComparativa(const std::vector<ResultadoExperimento>& resultados_pd,
-                             const std::vector<ResultadoExperimento>& resultados_greedy) {
-  const int w1 = 10, w2 = 6, w3 = 8, w4 = 12, w5 = 18, w6 = 13, w7 = 14;
+                             const std::vector<ResultadoExperimento>& resultados_greedy,
+                             const std::vector<ResultadoExperimento>& resultados_mejorado) {
+  const int w1 = 10, w2 = 6, w3 = 8;
+  const int w4 = 10, w5 = 16;
+  const int w6 = 10, w7 = 14;
+  const int w8 = 10, w9 = 14;
   std::cout << "\n"
             << std::setw(w1) << "Empleados"
             << std::setw(w2) << "Dias"
             << std::setw(w3) << "Turnos"
             << std::setw(w4) << "Valor PD"
-            << std::setw(w5) << "Tiempo PD (ms)"
-            << std::setw(w6) << "Valor Voraz"
+            << std::setw(w5) << "T. PD (ms)"
+            << std::setw(w6) << "V. Voraz"
             << std::setw(w7) << "T. Voraz (ms)"
+            << std::setw(w8) << "V. Mejor"
+            << std::setw(w9) << "T. Mejor (ms)"
             << "\n";
-  std::cout << std::string(w1+w2+w3+w4+w5+w6+w7, '-') << "\n";
+  int total = w1+w2+w3+w4+w5+w6+w7+w8+w9;
+  std::cout << std::string(total, '-') << "\n";
   for (size_t i = 0; i < resultados_pd.size(); ++i) {
     const auto& pd = resultados_pd[i];
     const auto& gr = resultados_greedy[i];
+    const auto& me = resultados_mejorado[i];
     std::cout << std::setw(w1) << pd.empleados
               << std::setw(w2) << pd.dias
               << std::setw(w3) << pd.turnos
@@ -166,6 +174,8 @@ void MostrarTablaComparativa(const std::vector<ResultadoExperimento>& resultados
               << std::setw(w5) << std::fixed << std::setprecision(2) << pd.tiempo_ms
               << std::setw(w6) << gr.valor
               << std::setw(w7) << std::fixed << std::setprecision(2) << gr.tiempo_ms
+              << std::setw(w8) << me.valor
+              << std::setw(w9) << std::fixed << std::setprecision(2) << me.tiempo_ms
               << "\n";
   }
   std::cout << "\n";
@@ -254,15 +264,18 @@ void ModoExperimentacion() {
     "../test-empleados/instance_horizon30_employees30_shifts20_000.json",
     "../test-empleados/instance_horizon30_employees30_shifts20_001.json",
   };
-  const std::string config_pd     = "../test-algoritmos/divide_and_dynamic.json";
-  const std::string config_greedy = "../test-algoritmos/divide_and_greedy.json";
+  const std::string config_pd       = "../test-algoritmos/divide_and_dynamic.json";
+  const std::string config_greedy   = "../test-algoritmos/divide_and_greedy.json";
+  const std::string config_mejorado = "../test-algoritmos/divide_and_improved_greedy.json";
   std::vector<ResultadoExperimento> resultados_pd;
   std::vector<ResultadoExperimento> resultados_greedy;
+  std::vector<ResultadoExperimento> resultados_mejorado;
   std::cout << "Ejecutando experimentacion...\n";
   for (const auto& instancia : instancias) {
     std::cout << "  " << instancia << "\n";
     resultados_pd.push_back(EjecutarAlgoritmo(instancia, config_pd));
     resultados_greedy.push_back(EjecutarAlgoritmo(instancia, config_greedy));
+    resultados_mejorado.push_back(EjecutarAlgoritmo(instancia, config_mejorado));
   }
-  MostrarTablaComparativa(resultados_pd, resultados_greedy);
+  MostrarTablaComparativa(resultados_pd, resultados_greedy, resultados_mejorado);
 }

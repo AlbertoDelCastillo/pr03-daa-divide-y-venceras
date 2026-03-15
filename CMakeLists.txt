@@ -32,6 +32,7 @@ add_library(MiCodigo
     src/algoritmo/divideyvenceras.cc
     src/algoritmo/small-solver/solver-gready.cc
     src/algoritmo/small-solver/solver-pd.cc
+    src/algoritmo/small-solver/solver-greedy-mejorado.cc
     src/config/configuracion-algoritmo.cc
     src/fabrica/fabrica-algoritmo.cc
     src/instancias/instancia-empleados.cc

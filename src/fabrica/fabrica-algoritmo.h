@@ -26,6 +26,7 @@
 #include "small-solver.h"
 #include "solver-gready.h"
 #include "solver-pd.h"
+#include "solver-greedy-mejorado.h"
 
 /**
  * @class FabricaAlgoritmos
