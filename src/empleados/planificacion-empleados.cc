@@ -127,51 +127,98 @@ SolucionEmpleados* PlanificacionEmpleados::ConcatenarSoluciones(SolucionEmpleado
  * @param e Índice del empleado a ajustar.
  */
 void PlanificacionEmpleados::AjustarDescansos(SolucionEmpleados* sol, int e) {
-  int dias_total = sol->GetNumDias();
-  int num_turnos = instancia_empleados_->GetNumTurnos();
   int descansos_necesarios = instancia_empleados_->GetDiasDescanso(e);
   int descansos_reales = 0;
+  for (int d = 0; d < sol->GetNumDias(); ++d) {
+    if (sol->GetAsignacion(e, d) == -1) descansos_reales++;
+  }
+  if (descansos_reales > descansos_necesarios) {
+    AsignarDescansosSobrantes(sol, e);
+  } else if (descansos_reales < descansos_necesarios) {
+    QuitarDescansosFaltantes(sol, e);
+  }
+}
+
+/**
+ * @brief Asigna trabajo a un empleado que tiene más descansos de los necesarios.
+ * Prioriza turnos sin cubrir con mayor satisfacción. Si todos están cubiertos,
+ * asigna al de mayor satisfacción.
+ * @param sol Solución combinada a ajustar.
+ * @param e Índice del empleado a ajustar.
+ */
+void PlanificacionEmpleados::AsignarDescansosSobrantes(SolucionEmpleados* sol, int e) {
+  int dias_total           = sol->GetNumDias();
+  int num_emp              = sol->GetNumEmpleados();
+  int num_turnos           = instancia_empleados_->GetNumTurnos();
+  int descansos_necesarios = instancia_empleados_->GetDiasDescanso(e);
+  int descansos_reales     = 0;
   for (int d = 0; d < dias_total; ++d) {
     if (sol->GetAsignacion(e, d) == -1) descansos_reales++;
   }
   while (descansos_reales > descansos_necesarios) {
-    int mejor_dia = -1;
-    int mejor_sat = std::numeric_limits<int>::min();
+    int mejor_dia              = -1;
+    int mejor_t                = -1;
+    int mejor_sat              = std::numeric_limits<int>::min();
+    bool encontrado_sin_cubrir = false;
     for (int d = 0; d < dias_total; ++d) {
       if (sol->GetAsignacion(e, d) != -1) continue;
       for (int t = 0; t < num_turnos; ++t) {
+        int asignados = 0;
+        for (int ee = 0; ee < num_emp; ++ee) {
+          if (sol->GetAsignacion(ee, d) == t) asignados++;
+        }
+        bool sin_cubrir = asignados < instancia_empleados_->GetMinTurnos(d, t);
         int sat = instancia_empleados_->GetSatisfaccion(e, d, t);
-        if (sat > mejor_sat) {
+        if (sin_cubrir && (!encontrado_sin_cubrir || sat > mejor_sat)) {
+          encontrado_sin_cubrir = true;
           mejor_sat = sat;
           mejor_dia = d;
+          mejor_t   = t;
+        }
+        if (!encontrado_sin_cubrir && sat > mejor_sat) {
+          mejor_sat = sat;
+          mejor_dia = d;
+          mejor_t   = t;
         }
       }
     }
     if (mejor_dia != -1) {
-      int mejor_t = -1;
-      int sat_max = std::numeric_limits<int>::min();
-      for (int t = 0; t < num_turnos; ++t) {
-        int sat = instancia_empleados_->GetSatisfaccion(e, mejor_dia, t);
-        if (sat > sat_max) { sat_max = sat; mejor_t = t; }
-      }
       sol->SetAsignacion(e, mejor_dia, mejor_t);
     }
     descansos_reales--;
   }
+}
+
+/**
+ * @brief Quita trabajo a un empleado que tiene menos descansos de los necesarios.
+ * Prioriza quitar del turno con mayor superávit. Si no hay superávit, quita del
+ * turno de menor satisfacción que no rompa cobertura. Como último recurso quita
+ * del de menor satisfacción sin restricción.
+ * @param sol Solución combinada a ajustar.
+ * @param e Índice del empleado a ajustar.
+ */
+void PlanificacionEmpleados::QuitarDescansosFaltantes(SolucionEmpleados* sol, int e) {
+  int dias_total           = sol->GetNumDias();
+  int num_emp              = sol->GetNumEmpleados();
+  int descansos_necesarios = instancia_empleados_->GetDiasDescanso(e);
+  int descansos_reales     = 0;
+  for (int d = 0; d < dias_total; ++d) {
+    if (sol->GetAsignacion(e, d) == -1) descansos_reales++;
+  }
   while (descansos_reales < descansos_necesarios) {
-    int peor_dia = -1;
+    int peor_dia        = -1;
     int mayor_superavit = -1;
     for (int d = 0; d < dias_total; ++d) {
       int t = sol->GetAsignacion(e, d);
       if (t == -1) continue;
       int asignados = 0;
-      for (int ee = 0; ee < sol->GetNumEmpleados(); ++ee) {
+      for (int ee = 0; ee < num_emp; ++ee) {
         if (sol->GetAsignacion(ee, d) == t) asignados++;
       }
       int superavit = asignados - instancia_empleados_->GetMinTurnos(d, t);
       if (superavit > mayor_superavit) {
         mayor_superavit = superavit;
-        peor_dia = d;
+        peor_dia        = d;
       }
     }
     if (mayor_superavit <= 0) {
@@ -179,10 +226,27 @@ void PlanificacionEmpleados::AjustarDescansos(SolucionEmpleados* sol, int e) {
       for (int d = 0; d < dias_total; ++d) {
         int t = sol->GetAsignacion(e, d);
         if (t == -1) continue;
+        int asignados = 0;
+        for (int ee = 0; ee < num_emp; ++ee) {
+          if (sol->GetAsignacion(ee, d) == t) asignados++;
+        }
+        bool rompe_cobertura = asignados <= instancia_empleados_->GetMinTurnos(d, t);
         int sat = instancia_empleados_->GetSatisfaccion(e, d, t);
-        if (sat < peor_sat) {
+        if (!rompe_cobertura && sat < peor_sat) {
           peor_sat = sat;
           peor_dia = d;
+        }
+      }
+      if (peor_dia == -1) {
+        int peor_sat = std::numeric_limits<int>::max();
+        for (int d = 0; d < dias_total; ++d) {
+          int t = sol->GetAsignacion(e, d);
+          if (t == -1) continue;
+          int sat = instancia_empleados_->GetSatisfaccion(e, d, t);
+          if (sat < peor_sat) {
+            peor_sat = sat;
+            peor_dia = d;
+          }
         }
       }
     }

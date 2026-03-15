@@ -35,10 +35,11 @@ class PlanificacionEmpleados : public DivideYVenceras {
   void MostrarCobertura(Solucion*, InstanciaEmpleados*) const;
 
  private:
+  void AsignarDescansosSobrantes(SolucionEmpleados* sol, int e);
+  void QuitarDescansosFaltantes(SolucionEmpleados* sol, int e);
   SolucionEmpleados* ConcatenarSoluciones(SolucionEmpleados*, SolucionEmpleados*);
   std::vector<int> CalcularFreeDays(InstanciaEmpleados*, int, int) const;
   void AjustarDescansos(SolucionEmpleados*, int);
-  std::vector<int> OrdenarTurnosPorDificultad(InstanciaEmpleados*, const std::vector<bool>&) const;
   std::pair<int,int> RecalcularCalidad(SolucionEmpleados*);
   InstanciaEmpleados* instancia_empleados_;
   SmallSolver* small_solver_;
