@@ -22,18 +22,41 @@
 #include <vector>
 #include <chrono>
 #include <iomanip>
-#include "instancia-vector.h"
-#include "mergesort.h"
-#include "quicksort.h"
 #include "lector-json.h"
 #include "instancia-empleados.h"
 #include "planificacion-empleados.h"
 #include "fabrica/fabrica-algoritmo.h"
 #include "lector/lector-configuracion-json.h"
 
-void MostrarTablaTiempos(const std::vector<int>&, const std::vector<double>&, const std::vector<double>&);
-void ModoNormal();
-void ModoDebug();
-void ModoEmpleados();
+/**
+ * @struct ResultadoExperimento
+ * @brief Almacena los resultados de ejecutar un algoritmo sobre una instancia.
+ */
+struct ResultadoExperimento {
+  int empleados;
+  int dias;
+  int turnos;
+  int valor;
+  double tiempo_ms;
+};
+
+/**
+ * @struct Argumentos
+ * @brief Almacena los argumentos parseados de la línea de comandos.
+ */
+struct Argumentos {
+  std::string ruta_instancia;
+  std::string ruta_algoritmo;
+  bool modo_experimentacion = false;
+  bool mostrar_ayuda        = false;
+  bool error                = false;
+  std::string mensaje_error;
+};
+
+Argumentos ParsearArgumentos(int, char**);
+void MostrarAyuda(const std::string&);
+void MostrarTablaComparativa(const std::vector<ResultadoExperimento>&, const std::vector<ResultadoExperimento>&);
+void ModoExperimentacion();
+void ModoEmpleados(const std::string&, const std::string&);
 
 #endif
