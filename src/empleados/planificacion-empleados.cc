@@ -55,6 +55,17 @@ bool PlanificacionEmpleados::Small(Instancia* inst) {
   return inst_emp->GetNumDias() <= 1;
 }
 
+std::vector<int> PlanificacionEmpleados::CalcularFreeDays(InstanciaEmpleados* inst_emp, 
+                                                          int dias_subinstancia, int dias_total) const {
+  int num_emp = inst_emp->GetNumEmpleados();
+  std::vector<int> free_days(num_emp, 0);
+  for (int e = 0; e < num_emp; ++e) {
+    int descansos = inst_emp->GetDiasDescanso(e);
+    free_days[e] = (descansos * dias_subinstancia) / dias_total;
+  }
+  return free_days;
+}
+
 /**
  * @brief Divide la instancia en dos subinstancias por la mitad de días.
  * Los freeDays se reparten proporcionalmente: floor a la izquierda, el resto a la derecha.
@@ -64,11 +75,14 @@ bool PlanificacionEmpleados::Small(Instancia* inst) {
 std::vector<Instancia*> PlanificacionEmpleados::Divide(Instancia* inst) {
   InstanciaEmpleados* inst_emp = dynamic_cast<InstanciaEmpleados*>(inst);
   int dias_total = inst_emp->GetNumDias();
-  int dias_izq = dias_total / 2;
-  std::vector<int> free_izq(inst_emp->GetNumEmpleados(), 0);
-  std::vector<int> free_der(inst_emp->GetNumEmpleados(), 0);
+  int dias_izq   = dias_total / 2;
+  std::vector<int> free_izq = CalcularFreeDays(inst_emp, dias_izq, dias_total);
+  std::vector<int> free_der = CalcularFreeDays(inst_emp, dias_total - dias_izq, dias_total);
+  for (int e = 0; e < inst_emp->GetNumEmpleados(); ++e) {
+    free_der[e] = inst_emp->GetDiasDescanso(e) - free_izq[e];
+  }
   return {
-    inst_emp->SubInstancia(0, dias_izq, free_izq),
+    inst_emp->SubInstancia(0,        dias_izq,   free_izq),
     inst_emp->SubInstancia(dias_izq, dias_total, free_der)
   };
 }

@@ -36,6 +36,7 @@ class PlanificacionEmpleados : public DivideYVenceras {
 
  private:
   SolucionEmpleados* ConcatenarSoluciones(SolucionEmpleados*, SolucionEmpleados*);
+  std::vector<int> CalcularFreeDays(InstanciaEmpleados*, int, int) const;
   void AjustarDescansos(SolucionEmpleados*, int);
   std::vector<int> OrdenarTurnosPorDificultad(InstanciaEmpleados*, const std::vector<bool>&) const;
   std::pair<int,int> RecalcularCalidad(SolucionEmpleados*);
