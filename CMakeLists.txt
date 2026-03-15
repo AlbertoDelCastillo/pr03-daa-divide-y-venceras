@@ -30,17 +30,13 @@ FetchContent_MakeAvailable(json)
 
 add_library(MiCodigo
     src/algoritmo/divideyvenceras.cc
-    src/algoritmo/mergesort.cc
-    src/algoritmo/quicksort.cc
     src/algoritmo/small-solver/solver-gready.cc
     src/algoritmo/small-solver/solver-pd.cc
     src/config/configuracion-algoritmo.cc
     src/fabrica/fabrica-algoritmo.cc
-    src/instancias/instancia-vector.cc
     src/instancias/instancia-empleados.cc
     src/lector/lector-configuracion-json.cc
     src/lector/lector-json.cc
-    src/solucion/solucion-vector.cc
     src/solucion/solucion-empleados.cc
     src/empleados/planificacion-empleados.cc
     src/utilidades.cc
@@ -50,9 +46,9 @@ add_library(MiCodigo
 target_include_directories(MiCodigo PUBLIC ${nlohmann_json_SOURCE_DIR}/include)
 
 # Primer ejecutable (primer punto)
-add_executable(programa_divide-y-venceras src/main.cc)
+add_executable(programacion-empleados src/main.cc)
 
 
-target_link_libraries(programa_divide-y-venceras PRIVATE MiCodigo)
-target_include_directories(programa_divide-y-venceras PRIVATE src/empleados src/lector src/instancias src/solucion)
+target_link_libraries(programacion-empleados PRIVATE MiCodigo)
+target_include_directories(programacion-empleados PRIVATE src/empleados src/lector src/instancias src/solucion)
 target_include_directories(MiCodigo PUBLIC ${nlohmann_json_SOURCE_DIR}/include src/empleados src/lector)
