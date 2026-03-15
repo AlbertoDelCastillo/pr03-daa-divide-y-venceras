@@ -20,7 +20,6 @@
  */
 
 #include "utilidades.h"
-#include "small-solver/solver-gready.h"
 
 /**
  * @brief Muestra una tabla comparativa de tiempos de ejecución.
@@ -106,25 +105,68 @@ void ModoDebug() {
 }
 
 /**
- * @brief Ejecuta el modo empleados: solicita ruta JSON, resuelve y muestra la planificación.
+ * @brief Ejecuta el modo empleados usando fábrica y configuración externa.
+ *
+ * Solicita dos ficheros JSON: uno con la instancia del problema y otro con
+ * la configuración del algoritmo. Después construye el algoritmo mediante
+ * FabricaAlgoritmos, resuelve la instancia y muestra la solución.
  */
 void ModoEmpleados() {
-  std::string ruta;
-  std::cout << "Introduzca la ruta del archivo JSON: ";
-  std::cin >> ruta;
-  LectorInstancia* lector = new LectorJSON();
-  Instancia* problema = lector->LeerDesdeFichero(ruta);
+  std::string ruta_instancia;
+  std::string ruta_configuracion;
+  std::cout << "Introduzca la ruta del JSON de instancia de empleados: ";
+  std::cin >> ruta_instancia;
+  std::cout << "Introduzca la ruta del JSON de configuracion del algoritmo: ";
+  std::cin >> ruta_configuracion;
+  LectorInstancia* lector_instancia = new LectorJSON();
+  LectorConfiguracion* lector_configuracion = new LectorConfiguracionJSON();
+  Instancia* problema = lector_instancia->LeerDesdeFichero(ruta_instancia);
   if (problema == nullptr) {
     std::cerr << "Fallo al cargar la instancia." << std::endl;
-    delete lector;
+    delete lector_instancia;
+    delete lector_configuracion;
     return;
   }
-  // problema->Mostrar();
-  PlanificacionEmpleados algoritmo(problema, new SolverGready());
-  Solucion* solucion = algoritmo.Solve(problema);
+  ConfiguracionAlgoritmo config =
+      lector_configuracion->LeerFichero(ruta_configuracion);
+  FabricaAlgoritmos fabrica;
+  Algoritmo* algoritmo = nullptr;
+  try {
+    algoritmo = fabrica.CrearAlgoritmo(config, problema);
+  } catch (const std::exception& e) {
+    std::cerr << "Error al crear el algoritmo: " << e.what() << std::endl;
+    delete problema;
+    delete lector_instancia;
+    delete lector_configuracion;
+    return;
+  }
+  if (algoritmo == nullptr) {
+    std::cerr << "No se pudo crear el algoritmo." << std::endl;
+    delete problema;
+    delete lector_instancia;
+    delete lector_configuracion;
+    return;
+  }
+  PlanificacionEmpleados* planificacion =
+      dynamic_cast<PlanificacionEmpleados*>(algoritmo);
+  if (planificacion == nullptr) {
+    std::cerr << "El algoritmo creado no es un planificador de empleados." << std::endl;
+    delete algoritmo;
+    delete problema;
+    delete lector_instancia;
+    delete lector_configuracion;
+    return;
+  }
+  Solucion* solucion = planificacion->Solve(problema);
   solucion->Mostrar();
-  algoritmo.MostrarCobertura(solucion, dynamic_cast<InstanciaEmpleados*>(problema));
+  InstanciaEmpleados* problema_empleados =
+      dynamic_cast<InstanciaEmpleados*>(problema);
+  if (problema_empleados != nullptr) {
+    planificacion->MostrarCobertura(solucion, problema_empleados);
+  }
   delete solucion;
+  delete algoritmo;
   delete problema;
-  delete lector;
+  delete lector_instancia;
+  delete lector_configuracion;
 }

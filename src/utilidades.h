@@ -28,6 +28,8 @@
 #include "lector-json.h"
 #include "instancia-empleados.h"
 #include "planificacion-empleados.h"
+#include "fabrica/fabrica-algoritmo.h"
+#include "lector/lector-configuracion-json.h"
 
 void MostrarTablaTiempos(const std::vector<int>&, const std::vector<double>&, const std::vector<double>&);
 void ModoNormal();

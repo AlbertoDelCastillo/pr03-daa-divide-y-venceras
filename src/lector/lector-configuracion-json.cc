@@ -16,15 +16,30 @@
  */
 
 #include "lector-configuracion-json.h"
-#include <fstream>
-#include <iostream>
-#include <nlohmann/json.hpp>
+
+/**
+ * @brief Desciende recursivamente por nodos anidados de "smallSolver" hasta
+ *        encontrar el nodo hoja (sin clave "smallSolver") y devuelve su "class".
+ *
+ * @param nodo Nodo JSON a inspeccionar.
+ * @return Valor de "class" del nodo hoja.
+ * @throws std::invalid_argument Si cualquier nodo del recorrido carece de "class".
+ */
+std::string LectorConfiguracionJSON::ExtraerClaseHoja(const nlohmann::json& nodo) {
+    if (!nodo.contains("class")) {
+        throw std::invalid_argument("Error: nodo de configuración sin clave \"class\"");
+    }
+    if (nodo.contains("smallSolver")) {
+        return ExtraerClaseHoja(nodo["smallSolver"]);
+    }
+    return nodo["class"];
+}
 
 /**
  * @brief Lee un fichero JSON y construye un objeto ConfiguracionAlgoritmo.
  *
- * Extrae las claves "class" y "smallSolver.class" del JSON y las añade
- * a la configuración como "class" y "smallSolver" respectivamente.
+ * Extrae la clave "class" del nodo raíz y, si existe "smallSolver", desciende
+ * recursivamente hasta el nodo hoja para obtener la clase del solver base.
  *
  * @param ruta Ruta al fichero JSON de configuración.
  * @return ConfiguracionAlgoritmo con los parámetros leídos, o vacía si
@@ -42,8 +57,8 @@ ConfiguracionAlgoritmo LectorConfiguracionJSON::LeerFichero(const std::string& r
     if (json.contains("class")) {
         config.AñadirConfiguracion("class", json["class"]);
     }
-    if (json.contains("smallSolver") && json["smallSolver"].contains("class")) {
-        config.AñadirConfiguracion("smallSolver", json["smallSolver"]["class"]);
+    if (json.contains("smallSolver")) {
+        config.AñadirConfiguracion("smallSolver", ExtraerClaseHoja(json["smallSolver"]));
     }
     return config;
 }

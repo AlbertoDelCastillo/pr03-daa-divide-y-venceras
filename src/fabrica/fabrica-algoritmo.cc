@@ -29,7 +29,7 @@ Algoritmo* FabricaAlgoritmos::CrearAlgoritmo(ConfiguracionAlgoritmo& config, Ins
   SmallSolver* motor_pequeño = nullptr;
   if (small_solver == "Greedy") {
     motor_pequeño = new SolverGready();
-  } else if (small_solver == "PD") {
+  } else if (small_solver == "DynamicProgramming") {
     motor_pequeño = new SolverPD();
   } else {
     throw std::invalid_argument("Error, motor pequeño no reconocido");

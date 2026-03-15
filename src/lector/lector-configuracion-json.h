@@ -19,6 +19,9 @@
 #define LECTOR_CONFIGURACION_JSON_H
 
 #include "lector-configuracion.h"
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <iostream>
 
 /**
  * @class LectorConfiguracionJSON
@@ -30,6 +33,8 @@
 class LectorConfiguracionJSON : public LectorConfiguracion {
  public:
     ConfiguracionAlgoritmo LeerFichero(const std::string& ruta) override;
+ private:
+    static std::string ExtraerClaseHoja(const nlohmann::json& nodo);
 };
 
 #endif
