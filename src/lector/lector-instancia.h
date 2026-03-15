@@ -27,16 +27,7 @@
  */
 class LectorInstancia {
  public:
-  /**
-   * @brief Destructor virtual por defecto.
-   */
   virtual ~LectorInstancia() = default;
-
-  /**
-   * @brief Lee un fichero y construye una instancia del problema.
-   * @param ruta_fichero Ruta al archivo que contiene los datos.
-   * @return Puntero a la Instancia generada dinámicamente.
-   */
   virtual Instancia* LeerDesdeFichero(const std::string& ruta_fichero) = 0;
 };
 

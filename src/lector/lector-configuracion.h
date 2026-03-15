@@ -31,12 +31,6 @@
 class LectorConfiguracion {
  public:
     virtual ~LectorConfiguracion() = default;
-
-    /**
-     * @brief Lee un fichero y devuelve la configuración cargada.
-     * @param ruta Ruta al fichero de configuración.
-     * @return Objeto ConfiguracionAlgoritmo con los parámetros leídos.
-     */
     virtual ConfiguracionAlgoritmo LeerFichero(const std::string& ruta) = 0;
 };
 
