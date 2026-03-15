@@ -23,31 +23,17 @@
 #include <stdexcept>
 
 /**
- * Clase container que almacena la configuracion del algoritmo
+ * @class ConfiguracionAlgoritmo
+ * @brief Contenedor de parámetros de configuración del algoritmo.
+ *
+ * Almacena pares clave-valor de tipo string. Garantiza que no existan
+ * claves duplicadas lanzando una excepción si se intenta insertar una
+ * clave ya presente.
  */
 class ConfiguracionAlgoritmo {
  public:
-  /**
-   * @brief Constructor por defecto.
-   *
-   * Inicializa el contenedor interno de configuraciones vacío.
-   */
   ConfiguracionAlgoritmo();
-
-  /**
-   * @brief Añade una nueva configuración (clave, valor).
-   * @param clave Identificador de la configuración.
-   * @param valor Valor asociado a la clave.
-   * @throws std::invalid_argument Si la clave ya existe en el contenedor.
-   */
   void AñadirConfiguracion(const std::string& clave, const std::string& valor);
-
-  /**
-   * @brief Obtiene el valor asociado a una clave.
-   * @param clave Identificador de la configuración a consultar.
-   * @return Valor asociado a la clave.
-   * @throws std::out_of_range Si la clave no existe en el contenedor.
-   */
   std::string ObtenerConfiguracion(const std::string& clave) const;
   
  private:
