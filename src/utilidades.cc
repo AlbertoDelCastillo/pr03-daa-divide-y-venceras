@@ -263,6 +263,7 @@ void ModoExperimentacion() {
     "../test-empleados/instance_horizon30_employees20_shifts10_001.json",
     "../test-empleados/instance_horizon30_employees30_shifts20_000.json",
     "../test-empleados/instance_horizon30_employees30_shifts20_001.json",
+    "../test-empleados/instance_horizon60_employees60_shifts40_001.json",
   };
   const std::string config_pd       = "../test-algoritmos/divide_and_dynamic.json";
   const std::string config_greedy   = "../test-algoritmos/divide_and_greedy.json";
