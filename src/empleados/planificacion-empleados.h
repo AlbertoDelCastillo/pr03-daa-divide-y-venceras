@@ -34,11 +34,10 @@ class PlanificacionEmpleados : public DivideYVenceras {
   ~PlanificacionEmpleados();
   void MostrarCobertura(Solucion*, InstanciaEmpleados*) const;
 
- private:
   SolucionEmpleados* ConcatenarSoluciones(SolucionEmpleados*, SolucionEmpleados*);
   void AjustarDescansos(SolucionEmpleados*, int);
-  std::vector<int> OrdenarTurnosPorDificultad(InstanciaEmpleados*, const std::vector<bool>&) const;
   std::pair<int,int> RecalcularCalidad(SolucionEmpleados*);
+  private:
   InstanciaEmpleados* instancia_empleados_;
   SmallSolver* small_solver_;
   bool Small(Instancia*) override;

@@ -1,0 +1,9 @@
+{
+	"class": "BinaryDivideAndConquer",
+	"smallSolver": {
+		"class": "Greedy"
+	},
+	"combine": {
+		"class": "Modi"
+	}
+}
